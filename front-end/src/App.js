@@ -1,15 +1,17 @@
 import React from 'react';
-import './App.css';
-import rockGlass from './images/rockGlass.svg';
+import { Route, Routes } from 'react-router-dom';
+// import { ThemeProvider } from 'styled-components';
+
+import Login from './pages/Login/Login';
+
+// import GlobalStyles from './styles/global';
+// import defaultTheme from './styles/themes/default';
 
 function App() {
   return (
-    <div className="App">
-      <span className="logo">TRYBE</span>
-      <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
-        Glass
-      </object>
-    </div>
+    <Routes>
+      <Route path="/" element={ <Login /> } />
+    </Routes>
   );
 }
 
