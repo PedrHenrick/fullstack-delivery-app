@@ -1,0 +1,16 @@
+version: "3"
+services:
+  db:
+    container_name: deliveryApp_db
+    image: mysql:8.0.21
+    restart: always
+    ports:
+      - 3306:3306
+      - 33060:33060
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+networks:
+  # Rede padrão, criada automaticamente
+  default:
+    # Dá um nome específico à rede padrão
+    name: deliveryApp_net
