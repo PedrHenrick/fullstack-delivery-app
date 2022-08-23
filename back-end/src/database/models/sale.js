@@ -37,6 +37,7 @@ const Sale = (Sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.STRING(50),
+      allowNull: false,
     },
   }, { timestamps: false });
 

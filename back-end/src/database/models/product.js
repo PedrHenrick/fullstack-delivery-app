@@ -16,6 +16,7 @@ const Product = (Sequelize, DataTypes) => {
     urlImage: {
       type: DataTypes.STRING(200),
       allowNull: false,
+      field: 'url_image',
     },
   }, { timestamps: false });
 
