@@ -8,8 +8,15 @@ services:
       - 3306:3306
       - 33060:33060
     environment:
-      MYSQL_ROOT_PASSWORD: password
-networks:
+      # NODE_ENV: development
+      # API_PORT: 3001
+      # MYSQL_HOST: localhost
+      # MYSQL_PORT: 3306
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: password
+      # MYSQL_DB_NAME: delivery-app
+      # EVAL_ALWAYS_RESTORE_DEV_DB: true
+  networks:
   # Rede padrão, criada automaticamente
   default:
     # Dá um nome específico à rede padrão
