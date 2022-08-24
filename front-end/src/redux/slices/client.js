@@ -1,19 +1,19 @@
-// import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-// const initialState = {
-//   email: '',
-// };
+const initialState = {
+  email: '',
+};
 
-// export const userSlice = createSlice({
-//   name: 'client',
-//   initialState,
-//   reducers: {
-//     changeName: (state, action) => {
-//       state.email = action.payload;
-//     },
-//   },
-// });
+export const clientSlice = createSlice({
+  name: 'client',
+  initialState,
+  reducers: {
+    changeName: (state, action) => {
+      state.email = action.payload;
+    },
+  },
+});
 
-// export const {
-//   changeName,
-// } = userSlice.actions;
+export const {
+  changeName,
+} = clientSlice.actions;
