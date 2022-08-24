@@ -1,5 +1,5 @@
-const SaleProduct = (Sequelize, DataTypes) => {
-  const saleProductTable = Sequelize.define('saleProduct', {
+module.exports = (Sequelize, DataTypes) => {
+  const SaleProduct = Sequelize.define('SaleProducts', {
     saleId: {
       type: DataTypes.INTEGER,
       foreignKey: true,
@@ -16,14 +16,12 @@ const SaleProduct = (Sequelize, DataTypes) => {
     },
   }, { timestamps: false });
 
-  saleProductTable.associate = (models) => {
-    saleProductTable.belongsTo(models.sale, {foreignKey: 'saleId', as: 'sale'})
+  SaleProduct.associate = (models) => {
+    SaleProduct.belongsTo(models.Sales, {foreignKey: 'saleId', as: 'sales'})
   };
-  saleProductTable.associate = (models) => {
-    saleProductTable.belongsTo(models.products, {foreignKey: 'productId', as: 'products'})
+  SaleProduct.associate = (models) => {
+    SaleProduct.belongsTo(models.Products, {foreignKey: 'productId', as: 'products'})
   };
 
-  return saleProductTable;
+  return SaleProduct;
 };
-
-module.exports = SaleProduct;
