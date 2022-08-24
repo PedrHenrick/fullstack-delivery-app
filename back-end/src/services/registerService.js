@@ -11,7 +11,7 @@ const registerService = async (payload) => {
   const t = await sequelize.transaction();
   try {
     const { password, email, name } = payload;
-    const [{ id }, created] = await Users.findOrCreate(
+    const [{ id, role }, created] = await Users.findOrCreate(
       {
         where: { email },
         defaults: { email, name, password: passwordHash(password) },
@@ -22,8 +22,7 @@ const registerService = async (payload) => {
     
     await t.commit();
 
-    const user = await Users.findOne({ where: { email }}); 
-    const token = jwt.sign({ id, role: user.role }, JWT_SECRET, jwtConfig);
+    const token = jwt.sign({ id, role }, JWT_SECRET, jwtConfig);
     
     return { token, id };
   } catch (e) {
