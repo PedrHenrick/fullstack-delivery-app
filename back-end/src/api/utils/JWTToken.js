@@ -1,4 +1,3 @@
-const { ErrorHandle } = require('../class/errorHandle');
 const jwt = require('jsonwebtoken');
 
 const SECRET = process.env.JWT_SECRET || 'lalaland';
@@ -11,7 +10,7 @@ const authenticateToken = async (token) => {
     const introspection = await jwt.verify(token, SECRET, jwtConfig);
     return introspection;
   } catch (_e) {
-    throw ErrorHandle(401, 'Expired or invalid token');
+    throw new Error('ExpiredOrInvalidToken');
   }
 };
 
