@@ -1,15 +1,19 @@
+const { StatusCodes } = require('http-status-codes');
+
 class LoginController {
   constructor(service) { 
-    this._service = service;
+    this.service = service;
   }
 
   async authenticate(request, response) {
-    console.log('entrei no controller');
-    const token = await this._service.authentication(request.body);
-    return response.status(200).json(token);
-  };
+    const token = await this.service.authentication(request.body);
+    return response.status(StatusCodes.OK).json(token);
+  }
+
+  async register(request, response) {
+    const token = await this.service.register(request.body);
+    return response.status(StatusCodes.CREATED).json(token);
+  }
 }
 
-module.exports = {
-  LoginController
-};
+module.exports = { LoginController };
