@@ -27,4 +27,4 @@ const errorCatalog = {
   },
 };
 
-module.exports = errorCatalog;
+module.exports = { errorCatalog };

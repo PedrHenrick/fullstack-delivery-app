@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const errorCatalog = require('../errors/catalog');
+const { errorCatalog } = require('../errors/catalog');
 
 module.exports = (err, _req, res, _next) => {
   const messageAsErrorType = err.message;

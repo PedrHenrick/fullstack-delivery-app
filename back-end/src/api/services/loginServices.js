@@ -10,7 +10,7 @@ class LoginService {
     if (!hasUser) throw new Error('userNotFound');
 
     if (!passwordCompare(password, hasUser.password)) {
-      throw new Error('incorretPassword'); 
+      throw new Error('incorrectPassword'); 
     }
 
     const token = generateJWTToken(JSON.stringify(hasUser));
