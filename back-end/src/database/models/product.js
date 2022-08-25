@@ -14,7 +14,7 @@ Product.init({
       allowNull: false,
     },
     price: {
-      type: DataTypes.DECIMAL(4, 2),
+      type: DataTypes.DECIMAL(4,2),
       allowNull: false
     },
     urlImage: {
