@@ -4,9 +4,7 @@ const { passwordCompare, passwordHash } = require('../utils/md5Create');
 class LoginService {
   constructor(model) { this.model = model; }
   
-  async authentication({ email, password }) {
-    console.log('entrei no service');
-    
+  async authentication({ email, password }) {    
     const hasUser = await this.model.findOne({ email });
 
     if (!hasUser) throw new Error('userNotFound');
