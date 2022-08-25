@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { passwordHash } = require('../util/crypto');
-const { Users } = require('../database/models');
+const User = require('../database/models/user');
 
 const { JWT_SECRET } = process.env;
 const jwtConfig = {
@@ -9,7 +9,7 @@ const jwtConfig = {
 
 const registerService = async (payload) => {
     const { password, email, name } = payload;
-    const [{ id, role }, created] = await Users.findOrCreate(
+    const [{ id, role }, created] = await User.findOrCreate(
       {
         where: { email },
         defaults: { email, name, password: passwordHash(password) },
