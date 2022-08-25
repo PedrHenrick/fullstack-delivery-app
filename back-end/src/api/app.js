@@ -4,17 +4,17 @@ const cors = require('cors');
 const { router } = require('./routers/router');
 const ErrorMiddleware = require('./middlewares/error.middleware');
 
-let app;
 class App {
-  constructor() {
-    app = express();
+  constructor(_app) {
+    this.app = _app;
+    this.app = express();
 
     this.config();
 
-    app.get('/coffee', (_req, res) => res.status(418).end());
-    app.use(cors());
-    app.use(router);
-    app.use(ErrorMiddleware);
+    this.app.get('/coffee', (_req, res) => res.status(418).end());
+    this.app.use(cors());
+    this.app.use(router);
+    this.app.use(ErrorMiddleware);
   }
 
   config() {
@@ -25,12 +25,12 @@ class App {
       next();
     };
 
-    app.use(express.json());
-    app.use(accessControl);
+    this.app.use(express.json());
+    this.app.use(accessControl);
   }
 
   start(PORT) {
-    app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+    this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
   }
 }
 
