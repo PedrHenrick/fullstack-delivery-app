@@ -5,7 +5,7 @@ class LoginService {
   constructor(model) { this.model = model; }
   
   async authentication({ email, password }) {    
-    const hasUser = await this.model.findOne({ email });
+    const hasUser = await this.model.findOne({ where: { email } });
 
     if (!hasUser) throw new Error('userNotFound');
 
@@ -18,9 +18,10 @@ class LoginService {
   }
 
   async register({ password, email, name }) {
-    const defaultObject = { email, name, password: passwordHash(password) };
-    const [{ id, role }, created] = await this.model.findOrCreate({ email }, defaultObject);
-    
+    const [{ id, role }, created] = await this.model.findOrCreate({
+      where: { email },
+      defaults: { email, name, password: passwordHash(password) },
+    });
     if (!created) throw new Error('emailCadastrado');
     
     const token = generateJWTToken(JSON.stringify({ id, role }));

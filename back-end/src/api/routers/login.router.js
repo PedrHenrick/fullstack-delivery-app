@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { UserModel } = require('../models/UserModel');
+const UserModel = require('../../database/models/user');
 const { LoginService } = require('../services/loginServices');
 const { LoginController } = require('../controllers/loginController');
 const { validateMiddleware } = require('../middlewares/validate.middleware');
@@ -7,8 +7,7 @@ const { loginSchema, registerSchema } = require('../middlewares/schems');
 
 const loginRouter = Router();
 
-const userModelInstance = new UserModel();
-const loginServiceInstance = new LoginService(userModelInstance);
+const loginServiceInstance = new LoginService(UserModel);
 const loginControllerInstance = new LoginController(loginServiceInstance);
 
 loginRouter.post(

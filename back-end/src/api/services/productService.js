@@ -1,4 +1,3 @@
-
 class ProductService {
   constructor(model) { this.model = model; }
   
