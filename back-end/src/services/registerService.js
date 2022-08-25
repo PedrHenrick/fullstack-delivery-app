@@ -20,10 +20,10 @@ const registerService = async (payload) => {
     );
     if (!created) throw new Error('emailCadastrado');
     
+    const token = jwt.sign({ id, role }, JWT_SECRET, jwtConfig);
+
     await t.commit();
 
-    const token = jwt.sign({ id, role }, JWT_SECRET, jwtConfig);
-    
     return { token, id };
   } catch (e) {
     await t.rollback();
