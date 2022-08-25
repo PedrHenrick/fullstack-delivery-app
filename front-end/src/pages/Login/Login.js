@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { changeName } from '../../redux/slices/client';
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,8 +24,6 @@ function Login() {
     event.preventDefault();
 
     dispatch(changeName(email));
-    localStorage.setItem('email', email);
-    localStorage.setItem('date', new Date());
   };
 
   return (
@@ -31,6 +31,7 @@ function Login() {
       <form>
         <label htmlFor="email">
           <input
+            data-testid="common_login__input-email"
             type="email"
             name="email"
             placeholder="Digite seu email"
@@ -40,6 +41,7 @@ function Login() {
         </label>
         <label htmlFor="password">
           <input
+            data-testid="common_login__input-password"
             type="password"
             name="password"
             placeholder="Digite sua senha"
@@ -48,12 +50,20 @@ function Login() {
           />
         </label>
         <button
+          data-testid="common_login__button-login"
           type="button"
           // disabled={ isButtonDisabled() }
           onClick={ handleClick }
         >
-          Entrar
+          Login
         </button>
+        <button
+          data-testid="common_login__button-register"
+          type="button"
+        >
+          Ainda não abri conta
+        </button>
+        <p data-testid="common_login__element-invalid-email" />
       </form>
     </div>
   );
