@@ -1,5 +1,9 @@
-module.exports = (Sequelize, DataTypes) => {
-  const Product = Sequelize.define('Products', {
+const { DataTypes, Model } = require('sequelize');
+const db = require('.');
+
+class Product extends Model {}
+
+Product.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -18,8 +22,11 @@ module.exports = (Sequelize, DataTypes) => {
       allowNull: false,
       field: 'url_image',
     },
-  }, { timestamps: false });
+  }, {
+    underscored: true,
+    sequelize: db,
+    modelName: 'products',
+    timestamps: false,
+  });
 
-  return Product;
-};
-
+  module.exports = Product;
