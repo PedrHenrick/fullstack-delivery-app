@@ -1,9 +1,9 @@
-const { compareSync, genSaltSync, hashSync } = require('bcrypt');
+const md5 = require('md5');
 
-const passwordHash = (senha) => hashSync(senha, genSaltSync(10));
-const comparaSenha = (senhaBd, passHash) => compareSync(senhaBd, passHash);
+const passwordHash = (password) => md5(password);
+const passwordCompare = (password, passwordHash) => passwordHash === md5(password);
 
 module.exports = {
-  passwordHash,
-  comparaSenha,
-};
+passwordHash,
+passwordCompare,
+}; 
