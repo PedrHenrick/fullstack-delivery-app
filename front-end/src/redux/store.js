@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-
 import { clientSlice } from './slices/client';
 
-export default configureStore({
+const configStore = configureStore({
   reducer: {
-    clientSlice,
+    someReducer: clientSlice.reducer,
   },
 });
+export default configStore;
