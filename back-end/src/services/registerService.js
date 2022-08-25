@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { passwordHash } = require('../util/crypto');
-const { Users, sequelize } = require('../database/models');
+const { Users } = require('../database/models');
 
 const { JWT_SECRET } = process.env;
 const jwtConfig = {
