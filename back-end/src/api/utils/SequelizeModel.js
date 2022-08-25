@@ -1,20 +1,35 @@
 class SequelizeModel {
-  constructor(model) { this._model = model }
+  constructor(model) { this.model = model; }
 
-  create = async (createObject) => this._model
-    .create({ ...createObject });
+  async create(createObject) {
+    return this.model
+      .create({ ...createObject });
+  }
 
-  findAll = async () => this._model
-    .findAll();
+  async findOrCreate(whereObject, defaultObject) {
+    return this.model
+      .findOrCreate({ where: { ...whereObject }, defaults: { ...defaultObject } });
+  }
 
-  findOne = async (whereObject) => this._model
-    .findOne({ where: { ...whereObject } });
+  async findAll() {
+    return this.model
+      .findAll();
+  }
 
-  update = async (id, updateObject) => this._model
-    .update(updateObject, { where: { id } });
+  async findOne(whereObject) {
+    return this.model
+      .findOne({ where: { ...whereObject } });
+  }
 
-  delete = async (_id) => this._model
-    .destroy({ where: { id } });
+  async update(id, updateObject) {
+    return this.model
+      .update(updateObject, { where: { id } });
+  }
+
+  async delete(id) {
+    return this.model
+      .destroy({ where: { id } });
+  }
 }
 
 module.exports = { SequelizeModel };
