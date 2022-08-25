@@ -1,14 +1,13 @@
 const { StatusCodes } = require('http-status-codes');
 const { errorCatalog } = require('../errors/catalog');
 
-module.exports = (err, _req, res, _next) => {
-  const messageAsErrorType = err.message;
-  const mappedError = errorCatalog[messageAsErrorType];
+module.exports = (error, _request, response, _next) => {
+  const mappedError = errorCatalog[error.message];
 
   if (mappedError) {
-    return res.status(mappedError.httpStatus).json({ error: mappedError.error });
+    return response.status(mappedError.httpStatus).json({ error: mappedError.error });
   }
 
-  console.error(err);
-  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'internal error' });
+  console.error(error);
+  return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'internal error' });
 };
