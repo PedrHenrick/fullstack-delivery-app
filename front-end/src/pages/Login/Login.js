@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { requestLogin } from '../../utils/requestLogin';
+import { useNavigate } from 'react-router-dom';
 
+import { requestLogin } from '../../utils/requestLogin';
 import { changeEmail, changePassword } from '../../redux/slices/client';
 
 function Login() {
@@ -11,6 +12,7 @@ function Login() {
   const NUMBER_SIX = 6;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = ({ target: { name, value } }) => {
     if (name === 'email') {
@@ -34,6 +36,7 @@ function Login() {
       console.log('entrei no try');
       const { token } = await requestLogin('/login', { email, password });
       console.log(token);
+      navigate('/customer/products');
     } catch (error) {
       console.log('entrei no catch');
       setIsValid(false);
@@ -75,6 +78,7 @@ function Login() {
         <button
           data-testid="common_login__button-register"
           type="button"
+          onClick={ () => navigate('/register') }
         >
           Ainda não abri conta
         </button>

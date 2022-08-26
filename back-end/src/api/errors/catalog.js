@@ -11,7 +11,7 @@ const errorCatalog = {
   },
   userNotFound: {
     error: 'User not found',
-    httpStatus: StatusCodes.BAD_REQUEST,
+    httpStatus: StatusCodes.NOT_FOUND,
   },
   incorrectPassword: {
     error: 'Incorrect password',
