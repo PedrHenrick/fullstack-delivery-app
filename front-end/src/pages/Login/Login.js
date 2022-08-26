@@ -6,6 +6,7 @@ import { changeName, changePassword } from '../../redux/slices/client';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const NUMBER_SIX = 6;
 
   const dispatch = useDispatch();
 
@@ -18,7 +19,8 @@ function Login() {
     }
   };
 
-  // const isButtonDisabled = () => !validate(email) || (password.length < 6);
+  const isButtonDisabled = () => !(/\S+@\S+\.\S+/).test(email)
+    || (password.length < NUMBER_SIX);
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -53,7 +55,7 @@ function Login() {
         <button
           data-testid="common_login__button-login"
           type="button"
-          // disabled={ isButtonDisabled() }
+          disabled={ isButtonDisabled() }
           onClick={ handleClick }
         >
           Login
