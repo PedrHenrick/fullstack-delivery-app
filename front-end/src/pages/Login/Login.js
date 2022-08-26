@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { changeName } from '../../redux/slices/client';
+import { changeName, changePassword } from '../../redux/slices/client';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -24,6 +24,7 @@ function Login() {
     event.preventDefault();
 
     dispatch(changeName(email));
+    dispatch(changePassword(password));
   };
 
   return (
