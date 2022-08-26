@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { changeName, changePassword } from '../../redux/slices/client';
+import { changeEmail, changePassword } from '../../redux/slices/client';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isValid, setIsValid] = useState(true);
   const NUMBER_SIX = 6;
 
   const dispatch = useDispatch();
@@ -22,11 +23,21 @@ function Login() {
   const isButtonDisabled = () => !(/\S+@\S+\.\S+/).test(email)
     || (password.length < NUMBER_SIX);
 
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     event.preventDefault();
 
-    dispatch(changeName(email));
+    dispatch(changeEmail(email));
     dispatch(changePassword(password));
+
+    try {
+      console.log('entrei no try');
+      const { token } = await requestLogin('/login', { email, password });
+      console.log(token);
+    } catch (error) {
+      console.log('entrei no catch');
+      setIsValid(false);
+      console.log('erro do try/catch', error);
+    }
   };
 
   return (
@@ -66,7 +77,10 @@ function Login() {
         >
           Ainda não abri conta
         </button>
-        <p data-testid="common_login__element-invalid-email" />
+        {
+          !isValid
+          && <p data-testid="common_login__element-invalid-email">Dados inválidos</p>
+        }
       </form>
     </div>
   );

@@ -9,7 +9,7 @@ export const clientSlice = createSlice({
   name: 'client',
   initialState,
   reducers: {
-    changeName: (state, action) => {
+    changeEmail: (state, action) => {
       state.email = action.payload;
     },
     changePassword: (state, action) => {
@@ -19,5 +19,5 @@ export const clientSlice = createSlice({
 });
 
 export const {
-  changeName, changePassword,
+  changeEmail, changePassword,
 } = clientSlice.actions;
