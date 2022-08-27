@@ -25,6 +25,10 @@ const errorCatalog = {
     error: 'Expired or invalid token',
     httpStatus: StatusCodes.UNAUTHORIZED,
   },
+  InvalidUserToken: {
+    error: 'Erro ao procurar usuário do token.',
+    httpStatus: StatusCodes.UNAUTHORIZED,
+  },
 };
 
 module.exports = { errorCatalog };
