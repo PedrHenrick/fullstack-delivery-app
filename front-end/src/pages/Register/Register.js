@@ -87,7 +87,7 @@ function Register() {
           />
         </label>
         <button
-          data-testid="common_register__button-login"
+          data-testid="common_register__button-register"
           type="button"
           disabled={ isButtonDisabled() }
           onClick={ handleClick }
@@ -96,7 +96,7 @@ function Register() {
         </button>
         {
           !isValid
-          && <p data-testid="common_login__element-invalid-email">Usuário já existe</p>
+          && <p data-testid="common_register__element-invalid_register">Usuário já existe</p>
         }
       </form>
     </div>
