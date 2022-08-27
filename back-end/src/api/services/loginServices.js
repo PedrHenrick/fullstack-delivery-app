@@ -13,19 +13,18 @@ class LoginService {
       throw new Error('incorrectPassword'); 
     }
 
-    const token = generateJWTToken(JSON.stringify(hasUser));
-    return { token };
+    const token = generateJWTToken({ ...hasUser.dataValues });
+    return { token, id: hasUser.id };
   }
 
-  async register({ password, email, name }) {
-    const [{ id, role }, created] = await this.model.findOrCreate({
+  async register({ password, email, name, role = 'cliente' }) {
+    const [user, created] = await this.model.findOrCreate({
       where: { email },
-      defaults: { email, name, password: passwordHash(password) },
+      defaults: { email, name, role, password: passwordHash(password) },
     });
     if (!created) throw new Error('emailCadastrado');
-    
-    const token = generateJWTToken(JSON.stringify({ id, role }));
-    return { token, id };
+    const token = generateJWTToken({ ...user.dataValues });
+    return { token, id: user.id };
   }
 }
 
