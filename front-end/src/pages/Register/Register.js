@@ -96,7 +96,11 @@ function Register() {
         </button>
         {
           !isValid
-          && <p data-testid="common_register__element-invalid_register">Usuário já existe</p>
+          && (
+            <p data-testid="common_register__element-invalid_register">
+              Usuário já existe
+            </p>
+          )
         }
       </form>
     </div>
