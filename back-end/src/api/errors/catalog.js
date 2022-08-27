@@ -3,7 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 const errorCatalog = {
   emailCadastrado: {
     error: 'Email ja cadastrado',
-    httpStatus: StatusCodes.UNPROCESSABLE_ENTITY,
+    httpStatus: StatusCodes.CONFLICT,
   },
   generalError: {
     error: 'Algo deu errado',
