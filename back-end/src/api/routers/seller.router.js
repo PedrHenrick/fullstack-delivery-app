@@ -9,10 +9,10 @@ const sellerRouter = Router();
 const sellerServiceInstance = new SellerService(Sales);
 const sellerControllerInstance = new SellerController(sellerServiceInstance);
 
-sellerRouter.get('/seller/orders', authenticateMiddleware,
+sellerRouter.get('/orders', authenticateMiddleware,
   (req, res) => sellerControllerInstance.allSellerOrders(req, res));
 
-sellerRouter.get('/seller/orders/:id', authenticateMiddleware,
+sellerRouter.get('/orders/:id', authenticateMiddleware,
   (req, res) => sellerControllerInstance.sellerOrderDetailsController(req, res));
 
 module.exports = sellerRouter;

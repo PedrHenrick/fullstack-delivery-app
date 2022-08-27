@@ -5,6 +5,6 @@ const sellerRouter = require('./seller.router');
 const router = Router();
 
 router.use('/', loginRouter);
-router.use('/', sellerRouter);
+router.use('/seller', sellerRouter);
 
 module.exports = { router };
