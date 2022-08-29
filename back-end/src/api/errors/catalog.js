@@ -3,7 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 const errorCatalog = {
   emailCadastrado: {
     error: 'Email ja cadastrado',
-    httpStatus: StatusCodes.UNPROCESSABLE_ENTITY,
+    httpStatus: StatusCodes.CONFLICT,
   },
   generalError: {
     error: 'Algo deu errado',
@@ -11,7 +11,7 @@ const errorCatalog = {
   },
   userNotFound: {
     error: 'User not found',
-    httpStatus: StatusCodes.BAD_REQUEST,
+    httpStatus: StatusCodes.NOT_FOUND,
   },
   incorrectPassword: {
     error: 'Incorrect password',
@@ -23,6 +23,10 @@ const errorCatalog = {
   },
   ExpiredOrInvalidToken: {
     error: 'Expired or invalid token',
+    httpStatus: StatusCodes.UNAUTHORIZED,
+  },
+  InvalidUserToken: {
+    error: 'Erro ao procurar usuário do token.',
     httpStatus: StatusCodes.UNAUTHORIZED,
   },
 };

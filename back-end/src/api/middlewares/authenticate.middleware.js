@@ -1,10 +1,23 @@
-const { authenticateToken } = require('../utils/JWTToken');
+require('dotenv').config();
 
-const authenticateMiddleware = async (request, _response, next) => {
-  const token = request.headers.authorization;
+const jwt = require('jsonwebtoken');
+
+const SECRET = process.env.JWT_SECRET;
+const User = require('../../database/models/user');
+
+const authenticateMiddleware = async (req, _res, next) => {
+  const token = req.headers.authorization;
   if (!token) throw new Error('Unauthorized');
-  else await authenticateToken(token);
-  next();
+  try {
+    const userInfo = jwt.verify(token, SECRET);
+    const hasUser = await User.findOne({ where: { email: userInfo.email } });
+    if (!hasUser) throw new Error('InvalidUserToken');
+    req.user = userInfo;
+    
+    return next();
+  } catch (error) {
+    throw new Error('ExpiredOrInvalidToken');
+  }
 };
 
-export default authenticateMiddleware;
+module.exports = authenticateMiddleware;

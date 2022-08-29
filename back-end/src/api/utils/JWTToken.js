@@ -1,17 +1,10 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const fs = require('fs');
 
-const SECRET = process.env.JWT_SECRET || 'lalaland';
+const SECRET = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
 const jwtConfig = { algorithm: 'HS256' };
 
-const generateJWTToken = (payload) => jwt.sign(payload, SECRET, jwtConfig);
+const generateJWTToken = (payload) => jwt.sign((payload), SECRET, jwtConfig);
 
-const authenticateToken = async (token) => {
-  try {
-    const introspection = await jwt.verify(token, SECRET, jwtConfig);
-    return introspection;
-  } catch (_e) {
-    throw new Error('ExpiredOrInvalidToken');
-  }
-};
-
-module.exports = { generateJWTToken, authenticateToken };
+module.exports = { generateJWTToken };
