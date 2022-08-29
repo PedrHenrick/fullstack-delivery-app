@@ -1,7 +1,9 @@
-module.exports = (Sequelize, DataTypes) => {
-  const SaleProduct = Sequelize.define(
-    "SalesProducts",
-    {
+const { DataTypes, Model } = require('sequelize');
+const db = require('.');
+
+class SalesProduct extends Model {}
+
+SalesProduct.init({
       saleId: {
         type: DataTypes.INTEGER,
         foreignKey: true,
@@ -16,9 +18,12 @@ module.exports = (Sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-    },
-    { timestamps: false }
-  );
+    }, {
+      underscored: true,
+      sequelize: db,
+      modelName: 'salesProducts',
+      timestamps: false,
+    });
 
   SaleProduct.associate = (models) => {
     models.Products.belongsToMany(models.Sales, {
@@ -35,5 +40,4 @@ module.exports = (Sequelize, DataTypes) => {
     });
   };
 
-  return SaleProduct;
-};
+module.exports = SalesProduct;

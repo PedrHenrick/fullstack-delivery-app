@@ -1,5 +1,10 @@
-module.exports = (Sequelize, DataTypes) => {
-  const Sale = Sequelize.define('Sales', {
+const { DataTypes, Model } = require('sequelize');
+const db = require('.');
+// const User = require('./user');
+
+class Sales extends Model {}
+
+Sales.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -39,15 +44,15 @@ module.exports = (Sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-  }, { timestamps: false });
-
-  Sale.associate = (models) => {
-    Sale.belongsTo(models.Users, {foreignKey: 'userId', as: 'sales'})
+  }, {
+    underscored: true,
+    sequelize: db,
+    modelName: 'sales',
+    timestamps: false,
+  });
+  Sales.associate = (models) => {
+    Sales.belongsTo(models.Users, {foreignKey: 'userId', as: 'sales'});
+    Sales.belongsTo(models.Users, {foreignKey: 'sellerId', as: 'sales'});
   };
-  Sale.associate = (models) => {
-    Sale.belongsTo(models.Users, {foreignKey: 'sellerId', as: 'sales'})
-  };
 
-  return Sale;
-};
-
+  module.exports = Sales;
