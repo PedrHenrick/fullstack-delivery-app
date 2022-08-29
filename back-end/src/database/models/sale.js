@@ -30,7 +30,7 @@ Sales.init({
       allowNull: false,
       field: 'delivery_address',
     },
-    deliverynNumber: {
+    deliveryNumber: {
       type: DataTypes.STRING(50),
       allowNull: false,
       field: 'delivery_number',

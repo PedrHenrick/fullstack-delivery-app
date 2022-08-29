@@ -25,17 +25,17 @@ SalesProduct.init({
       timestamps: false,
     });
 
-  SaleProduct.associate = (models) => {
+  SalesProduct.associate = (models) => {
     models.Products.belongsToMany(models.Sales, {
       foreignKey: "saleId",
       as: "sales",
-      through: SaleProduct,
+      through: SalesProduct,
       otherKey: 'productId'
     });
     models.Sales.belongsToMany(models.Products, {
       foreignKey: "productId",
       as: "products",
-      through: SaleProduct,
+      through: SalesProduct,
       otherKey: 'saleId'
     });
   };
