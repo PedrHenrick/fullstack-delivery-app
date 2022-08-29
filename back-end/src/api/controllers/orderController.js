@@ -1,12 +1,12 @@
 const { StatusCodes } = require('http-status-codes');
 
-class sallesController {
+class SallesController {
   constructor(service) { 
     this.service = service;
   }
 
   async createSellerController(request, response) {
-    const result = await this.service.createSeller(request.body);
+    const result = await this.service.createSaller(request.body);
     return response.status(StatusCodes.CREATED).json(result);
   }
 
@@ -16,4 +16,4 @@ class sallesController {
   }
 }
 
-module.exports = { sallesController };
+module.exports = { SallesController };
