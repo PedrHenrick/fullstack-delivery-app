@@ -2,14 +2,35 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Header() {
+  const client = localStorage.getItem('name');
   return (
-    <div>
+    <header>
       <nav>
-        <Link to="/customer/products">Produtos</Link>
-        <Link to="/customer/orders">Meus Pedidos</Link>
-        <Link to="/login">Sair</Link>
+        <Link
+          data-testid="customer_products__element-navbar-link-products"
+          to="/customer/products"
+        >
+          Produtos
+        </Link>
+        <Link
+          data-testid="customer_products__element-navbar-link-orders"
+          to="/customer/orders"
+        >
+          Meus Pedidos
+        </Link>
+        <div
+          data-testid="customer_products__element-navbar-user-full-name"
+        >
+          { client }
+        </div>
+        <Link
+          data-testid="customer_products__element-navbar-link-logout"
+          to="/login"
+        >
+          Sair
+        </Link>
       </nav>
-    </div>
+    </header>
   );
 }
 

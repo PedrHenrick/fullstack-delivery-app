@@ -35,7 +35,9 @@ function Register() {
     event.preventDefault();
 
     dispatch(changeName(userName));
+    localStorage.setItem('name', userName);
     dispatch(changeEmail(email));
+    localStorage.setItem('email', email);
     dispatch(changePassword(password));
 
     try {
