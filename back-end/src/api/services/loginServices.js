@@ -12,8 +12,7 @@ class LoginService {
     if (!passwordCompare(password, hasUser.password)) {
       throw new Error('incorrectPassword'); 
     }
-
-    const token = generateJWTToken({ ...hasUser.dataValues });
+    const token = generateJWTToken({ id: hasUser.id, name: hasUser.name, email: hasUser.email, role: hasUser.role });
     return { token, id: hasUser.id };
   }
 
@@ -23,7 +22,7 @@ class LoginService {
       defaults: { email, name, role, password: passwordHash(password) },
     });
     if (!created) throw new Error('emailCadastrado');
-    const token = generateJWTToken({ ...user.dataValues });
+    const token = generateJWTToken({ id: user.id, name: user.name, email: user.email, role: user.role });
     return { token, id: user.id };
   }
 }
