@@ -3,7 +3,8 @@ const UserModel = require('../../database/models/user');
 const { LoginService } = require('../services/loginServices');
 const { LoginController } = require('../controllers/loginController');
 const { validateMiddleware } = require('../middlewares/validate.middleware');
-const { loginSchema, registerSchema } = require('../middlewares/schems');
+const authenticateMiddleware = require('../middlewares/authenticate.middleware');
+const { loginSchema, registerSchema, adminRegisterSchema } = require('../middlewares/schems');
 
 const loginRouter = Router();
 
@@ -19,6 +20,13 @@ loginRouter.post(
   '/register',
   validateMiddleware(registerSchema),
   (request, response) => loginControllerInstance.register(request, response),
+);
+
+loginRouter.post(
+  '/registerAdmin',
+  validateMiddleware(adminRegisterSchema),
+  authenticateMiddleware,  
+  (request, response) => loginControllerInstance.registerAdmin(request, response),
 );
 
 module.exports = { loginRouter };
