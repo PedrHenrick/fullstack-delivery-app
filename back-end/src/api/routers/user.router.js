@@ -35,4 +35,10 @@ userRouter.get(
   (req, res) => userControllerInstance.getAll(req, res),
 );
 
+userRouter.delete(
+  '/user',
+  authenticateMiddleware,
+  (req, res) => userControllerInstance.deleteUser(req, res),
+);
+
 module.exports = userRouter;
