@@ -29,16 +29,16 @@ SalesProduct.init({
 
   SalesProduct.associate = (models) => {
     models.Products.belongsToMany(models.Sales, {
-      foreignKey: "saleId",
+      foreignKey: "productId",
       as: "sales",
       through: SalesProduct,
-      otherKey: 'productId'
+      otherKey: 'saleId'
     });
     models.Sales.belongsToMany(models.Products, {
-      foreignKey: "productId",
+      foreignKey: "saleId",
       as: "products",
       through: SalesProduct,
-      otherKey: 'saleId'
+      otherKey: 'productId'
     });
   };
 

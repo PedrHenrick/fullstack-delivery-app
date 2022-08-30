@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const config = require('../../database/config/config');
 
-const Environment = process.env.NODE_ENV;
+const Environment = process.env.NODE_ENV || 'development';
 const sequelize = new Sequelize(config[Environment]);
 
 class SalesService {
@@ -41,8 +41,16 @@ class SalesService {
     }
 
     async getSale({ id }) {
-      const sale = await this.salesModel.findOne({ where: { id } });
-      return sale;
+      try {
+        const sale = await this.salesModel.findOne({include: [
+          // { model: this.salesProdutsModel },
+          { model: this.productsModel }
+        ], where: { id }});
+        return sale;
+      }
+      catch(err) {
+        console.log(err);
+      }
     }
   }
   
