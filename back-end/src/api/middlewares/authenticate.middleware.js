@@ -1,8 +1,9 @@
 require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
-const SECRET = process.env.JWT_SECRET;
+const SECRET = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
 const User = require('../../database/models/user');
 
 const authenticateMiddleware = async (req, _res, next) => {
