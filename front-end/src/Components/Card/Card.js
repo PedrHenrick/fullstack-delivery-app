@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import { requestProducts } from '../../utils/requests';
-// import allProducts from '../../utils/mockProducts';
 
 function Card() {
   const [products, setProducts] = useState([]);
@@ -41,7 +40,7 @@ function Card() {
               type="button"
               name="-"
               value={ product.id }
-              // onClick={ handleClick }
+
             >
               -
             </button>
@@ -51,17 +50,13 @@ function Card() {
               min="0"
               placeholder="0"
               name={ product.id }
-              // value={ localCart?.some((item) => +item.id === +product.id)
-              //   ? localCart.find((item) => +item.id === +product.id).amount
-              //   : 0 }
-              // onChange={ handleChange }
             />
             <button
               datatest-id={ `customer_products__button-card-add-item-${product.id}` }
               type="button"
               name="+"
               value={ product.id }
-              // onClick={ handleClick }
+
             >
               +
             </button>

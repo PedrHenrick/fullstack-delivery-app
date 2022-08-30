@@ -6,7 +6,6 @@ import Header from '../../Components/Header/Header';
 function CustomerProducts() {
   return (
     <div>
-      Customer Products
       <Header />
       <Card />
     </div>
