@@ -32,7 +32,7 @@ class SalesService {
               quantity: product.quantity,
             }, { transaction: t });
           }))
-          return 'foi';
+          return true;
         });
         return result;
       } catch (error) {
