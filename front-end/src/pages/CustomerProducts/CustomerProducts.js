@@ -5,10 +5,10 @@ import Header from '../../Components/Header/Header';
 
 function CustomerProducts() {
   return (
-    <div>
+    <section>
       <Header />
       <Card />
-    </div>
+    </section>
 
   );
 }

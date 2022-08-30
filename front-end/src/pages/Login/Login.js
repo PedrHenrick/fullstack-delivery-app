@@ -9,6 +9,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValid, setIsValid] = useState(true);
+
   const NUMBER_SIX = 6;
 
   const dispatch = useDispatch();
@@ -33,7 +34,15 @@ function Login() {
 
     try {
       const { token } = await requestLogin('/login', { email, password });
-      localStorage.setItem('token', token);
+      // const result = await requestUsers('/users');
+      // console.log(result);
+      const localObj = {
+        name: '',
+        email,
+        role: '',
+        token,
+      };
+      localStorage.setItem('teste', JSON.stringify(localObj));
       navigate('/customer/products');
     } catch (error) {
       setIsValid(false);

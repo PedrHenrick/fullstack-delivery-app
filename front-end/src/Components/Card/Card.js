@@ -17,45 +17,46 @@ function Card() {
   return (
     <>
       <div>
-        {products.map((product) => (
-          <div key={ product.id }>
+        {products.map(({ id, urlImage, name, price }) => (
+          <div key={ id }>
+            { console.log(urlImage, id, price, name)}
             <h3
-              datatest-id={ `customer_products__element-card-title-${product.id}` }
+              datatest-id={ `customer_products__element-card-title-${id}` }
             >
-              { product.name }
+              { name }
 
             </h3>
             <img
-              datatest-id={ `customer_products__img-card-bg-image-${product.id}` }
-              src={ product.urlImage }
-              alt={ product.name }
+              datatest-id={ `customer_products__img-card-bg-image-${id}` }
+              src={ urlImage }
+              alt={ name }
             />
             <p
-              datatest-id={ `customer_products__element-card-price-${product.id}` }
+              datatest-id={ `customer_products__element-card-price-${id}` }
             >
-              {`R$ ${product.price}`}
+              {`R$ ${price}`}
             </p>
             <button
-              datatest-id={ `customer_products__button-card-rm-item-${product.id}` }
+              datatest-id={ `customer_products__button-card-rm-item-${id}` }
               type="button"
               name="-"
-              value={ product.id }
+              value={ id }
 
             >
               -
             </button>
             <input
-              datatest-id={ `customer_products__input-card-quantity-${product.id}` }
+              datatest-id={ `customer_products__input-card-quantity-${id}` }
               type="number"
               min="0"
               placeholder="0"
-              name={ product.id }
+              name={ id }
             />
             <button
-              datatest-id={ `customer_products__button-card-add-item-${product.id}` }
+              datatest-id={ `customer_products__button-card-add-item-${id}` }
               type="button"
               name="+"
-              value={ product.id }
+              value={ id }
 
             >
               +
