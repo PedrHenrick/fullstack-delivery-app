@@ -1,7 +1,7 @@
 const { generateJWTToken } = require('../utils/JWTToken');
 const { passwordCompare, passwordHash } = require('../utils/md5Create');
 
-class LoginService {
+class UserService {
   constructor(model) {
     this.model = model;
   }
@@ -23,20 +23,38 @@ class LoginService {
     return { token, id: hasUser.id };
   }
 
-  async register({ password, email, name, role = 'cliente' }) {
+  async register({ password, email, name, role = 'cliente' }, admin) {
+    const adminRole = admin === 'administrator';
+
     const [user, created] = await this.model.findOrCreate({
       where: { email },
       defaults: { email, name, role, password: passwordHash(password) },
     });
     if (!created) throw new Error('emailCadastrado');
-    const token = generateJWTToken({
+    const payload = {
       id: user.id,
       name: user.name,
       email: user.email,
-      role: user.role,
-    });
+    };
+    if (adminRole) payload.role = role;
+
+    const token = generateJWTToken({ ...payload });
     return { token, id: user.id };
+  }
+
+  async getAll(admin) {
+    if (admin !== 'administrator') throw new Error('Unauthorized');
+
+    const allUsersService = await this.model.findAll();
+    return allUsersService;
+  }
+
+  async deleteUser(id, admin) {
+    if (admin !== 'administrator') throw new Error('Unauthorized');
+
+    const allUsersService = await this.model.destroy({ where: { id } });
+    return allUsersService;
   }
 }
 
-module.exports = { LoginService };
+module.exports = UserService;

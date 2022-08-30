@@ -7,6 +7,7 @@ SalesProduct.init({
       saleId: {
         type: DataTypes.INTEGER,
         foreignKey: true,
+        primaryKey: true,
         field: "sale_id",
       },
       productId: {
@@ -19,23 +20,22 @@ SalesProduct.init({
         allowNull: false,
       },
     }, {
-      underscored: true,
       sequelize: db,
       modelName: 'salesProducts',
       timestamps: false,
     });
 
-  SaleProduct.associate = (models) => {
+  SalesProduct.associate = (models) => {
     models.Products.belongsToMany(models.Sales, {
       foreignKey: "saleId",
       as: "sales",
-      through: SaleProduct,
+      through: SalesProduct,
       otherKey: 'productId'
     });
     models.Sales.belongsToMany(models.Products, {
       foreignKey: "productId",
       as: "products",
-      through: SaleProduct,
+      through: SalesProduct,
       otherKey: 'saleId'
     });
   };
