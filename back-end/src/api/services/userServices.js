@@ -48,6 +48,13 @@ class UserService {
     const allUsersService = await this.model.findAll();
     return allUsersService;
   }
+
+  async deleteUser(id, admin) {
+    if (admin !== 'administrator') throw new Error('Unauthorized');
+
+    const allUsersService = await this.model.destroy({ where: { id } });
+    return allUsersService;
+  }
 }
 
 module.exports = UserService;
