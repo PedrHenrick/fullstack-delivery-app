@@ -1,6 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
 const db = require('.');
-// const User = require('./user');
 
 class Sales extends Model {}
 
