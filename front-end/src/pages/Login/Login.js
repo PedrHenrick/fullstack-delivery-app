@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { requestLogin } from '../../utils/requestLogin';
+import { requestLogin } from '../../utils/requests';
 import { changeEmail } from '../../redux/slices/client';
 
 function Login() {

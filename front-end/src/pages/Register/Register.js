@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { requestLogin } from '../../utils/requestLogin';
+import { requestLogin } from '../../utils/requests';
 import { changeEmail, changePassword, changeName } from '../../redux/slices/client';
 
 function Register() {
@@ -41,7 +41,6 @@ function Register() {
     dispatch(changePassword(password));
 
     try {
-      console.log('entrei no try');
       const { token } = await requestLogin(
         '/register',
         { email, password, name: userName },
@@ -49,7 +48,6 @@ function Register() {
       console.log(token);
       navigate('/customer/products');
     } catch (error) {
-      console.log('entrei no catch');
       setIsValid(false);
       console.log('erro do try/catch', error);
     }

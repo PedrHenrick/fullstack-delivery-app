@@ -5,8 +5,12 @@ const api = axios.create({
 });
 
 export const requestLogin = async (endpoint, body) => {
-  console.log('entrei no requestLogin');
   const { data } = await api.post(endpoint, body);
+  return data;
+};
+
+export const requestProducts = async (endpoint) => {
+  const { data } = await api.get(endpoint);
   return data;
 };
 
