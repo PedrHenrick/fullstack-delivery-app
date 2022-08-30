@@ -43,7 +43,7 @@ class UserService {
   }
 
   async getAll(admin) {
-    if(admin !== 'administrator') throw new Error('Unauthorized')
+    if (admin !== 'administrator') throw new Error('Unauthorized');
 
     const allUsersService = await this.model.findAll();
     return allUsersService;
