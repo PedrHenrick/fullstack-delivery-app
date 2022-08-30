@@ -26,6 +26,13 @@ class UserController {
     const allUsers = await this.service.getAll(role);
     return res.status(StatusCodes.OK).json(allUsers);
   }
+
+  async deleteUser(req, res) {
+    const { role } = req.user;
+    const { id } = req.body;
+    await this.service.deleteUser(id, role);
+    return res.status(StatusCodes.OK).end();
+  }
 }
 
 module.exports = UserController;
