@@ -9,7 +9,13 @@ const registerSchema = joi.object({
   password: joi.string().min(6).required(),
   email: joi.string().email().required(),
   name: joi.string().required(),
-  role: joi.string().optional(),
 });
 
-module.exports = { loginSchema, registerSchema };
+const adminRegisterSchema = joi.object({
+  password: joi.string().min(6).required(),
+  email: joi.string().email().required(),
+  name: joi.string().required(),
+  role: joi.string().required(),
+});
+
+module.exports = { loginSchema, registerSchema, adminRegisterSchema };
