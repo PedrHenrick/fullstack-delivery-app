@@ -20,7 +20,7 @@ class UserService {
       email: hasUser.email,
       role: hasUser.role,
     });
-    return { token, id: hasUser.id };
+    return { token, user: hasUser };
   }
 
   async register({ password, email, name, role = 'cliente' }, admin) {

@@ -19,7 +19,6 @@ function Card() {
       <div>
         {products.map(({ id, urlImage, name, price }) => (
           <div key={ id }>
-            { console.log(urlImage, id, price, name)}
             <h3
               datatest-id={ `customer_products__element-card-title-${id}` }
             >

@@ -33,13 +33,12 @@ function Login() {
     dispatch(changeEmail(email));
 
     try {
-      const { token } = await requestLogin('/login', { email, password });
-      // const result = await requestUsers('/users');
-      // console.log(result);
+      const { token, user } = await requestLogin('/login', { email, password });
+      console.log(user);
       const localObj = {
-        name: '',
-        email,
-        role: '',
+        name: user.name,
+        email: user.email,
+        role: user.role,
         token,
       };
       localStorage.setItem('teste', JSON.stringify(localObj));
