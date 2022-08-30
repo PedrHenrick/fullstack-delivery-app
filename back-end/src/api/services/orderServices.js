@@ -4,30 +4,30 @@ const config = require('../../database/config/config');
 const Environment = process.env.NODE_ENV;
 const sequelize = new Sequelize(config[Environment]);
 
-class SallesService {
-    constructor(salles, products, saleProduct) { 
-      this.sallesModel = salles;
+class SalesService {
+    constructor(sales, products, saleProduct) { 
+      this.salesModel = sales;
       this.productsModel = products;
-      this.sallesProdutsModel = saleProduct;
+      this.salesProdutsModel = saleProduct;
     }
     
-    async createSaller(salle) {
+    async createSale(sale) {
       try {
         const result = await sequelize.transaction(async (t) => {
-          const salleCreated = await this.sallesModel.create({
-            userId: salle.userId,
-            sellerId: salle.sellerId,
-            totalPrice: salle.totalPrice,
-            deliveryAddress: salle.deliveryAddress,
-            deliveryNumber: salle.deliveryNumber,
-            status: salle.status,
+          const saleCreated = await this.salesModel.create({
+            userId: sale.userId,
+            sellerId: sale.sellerId,
+            totalPrice: sale.totalPrice,
+            deliveryAddress: sale.deliveryAddress,
+            deliveryNumber: sale.deliveryNumber,
+            status: sale.status,
           }, { transaction: t });
 
-          await Promise.all(salle.productsIds.map(async (product) => {
+          await Promise.all(sale.productsIds.map(async (product) => {
             const productExist = await this.productsModel
               .findOne({ where: { id: product.id } }, { transaction: t });
-            await this.sallesProdutsModel.create({
-              saleId: salleCreated.id,
+            await this.salesProdutsModel.create({
+              saleId: saleCreated.id,
               productId: productExist.id,
               quantity: product.quantity,
             }, { transaction: t });
@@ -40,10 +40,10 @@ class SallesService {
       }
     }
 
-    async getSeller({ id }) {   
-      const salle = await this.model.findOne({ where: id });
-      return salle;
+    async getSale({ id }) {
+      const sale = await this.salesModel.findOne({ where: { id } });
+      return sale;
     }
   }
   
-  module.exports = { SallesService };
+  module.exports = { SalesService };
