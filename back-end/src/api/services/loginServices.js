@@ -23,18 +23,20 @@ class LoginService {
     return { token, id: hasUser.id };
   }
 
-  async register({ password, email, name, role = 'cliente' }) {
+  async register({ password, email, name, role = 'cliente' }, admin) {
     const [user, created] = await this.model.findOrCreate({
       where: { email },
       defaults: { email, name, role, password: passwordHash(password) },
     });
     if (!created) throw new Error('emailCadastrado');
-    const token = generateJWTToken({
+    const payload = {
       id: user.id,
       name: user.name,
       email: user.email,
-      role: user.role,
-    });
+    };
+    if (admin) payload.role = role;
+
+    const token = generateJWTToken({ ...payload });
     return { token, id: user.id };
   }
 }
