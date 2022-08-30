@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 
-class LoginController {
+class UserController {
   constructor(service) { 
     this.service = service;
   }
@@ -16,11 +16,16 @@ class LoginController {
   }
 
   async registerAdmin(request, response) {
-      const { role } = request.user;
-      const admin = role === 'administrator';
-    const token = await this.service.register(request.body, admin);
+    const { role } = request.user;
+    const token = await this.service.register(request.body, role);
     return response.status(StatusCodes.CREATED).json(token);
+  }
+
+  async getAll(req, res) {
+    const { role } = req.user;
+    const allUsers = await this.service.getAll(role);
+    return res.status(StatusCodes.OK).json(allUsers);
   }
 }
 
-module.exports = { LoginController };
+module.exports = UserController;
