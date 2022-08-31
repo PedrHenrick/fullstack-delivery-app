@@ -6,8 +6,8 @@ class SallesController {
   }
 
   async createSaleController(request, response) {
-    await this.service.createSale(request.body);
-    return response.status(StatusCodes.CREATED).end();
+    const result = await this.service.createSale(request.body);
+    return response.status(StatusCodes.CREATED).json(result);
   }
 
   async getSaleController(request, response) {
