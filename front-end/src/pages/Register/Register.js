@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { requestLogin } from '../../utils/requests';
-import { changeEmail, changePassword, changeName } from '../../redux/slices/client';
+import { changeEmail, changeName } from '../../redux/slices/client';
 
 function Register() {
   const [userName, setUserName] = useState('');
@@ -38,7 +38,6 @@ function Register() {
     localStorage.setItem('name', userName);
     dispatch(changeEmail(email));
     localStorage.setItem('email', email);
-    dispatch(changePassword(password));
 
     try {
       const { token } = await requestLogin(

@@ -12,31 +12,29 @@ function Card() {
     })();
   }, []);
 
-  console.log(products);
-
   return (
     <>
       <div>
         {products.map(({ id, urlImage, name, price }) => (
           <div key={ id }>
             <h3
-              datatest-id={ `customer_products__element-card-title-${id}` }
+              data-testid={ `customer_products__element-card-title-${id}` }
             >
               { name }
 
             </h3>
             <img
-              datatest-id={ `customer_products__img-card-bg-image-${id}` }
+              data-testid={ `customer_products__img-card-bg-image-${id}` }
               src={ urlImage }
               alt={ name }
             />
             <p
-              datatest-id={ `customer_products__element-card-price-${id}` }
+              data-testid={ `customer_products__element-card-price-${id}` }
             >
               {`R$ ${price}`}
             </p>
             <button
-              datatest-id={ `customer_products__button-card-rm-item-${id}` }
+              data-testid={ `customer_products__button-card-rm-item-${id}` }
               type="button"
               name="-"
               value={ id }
@@ -45,14 +43,14 @@ function Card() {
               -
             </button>
             <input
-              datatest-id={ `customer_products__input-card-quantity-${id}` }
+              data-testid={ `customer_products__input-card-quantity-${id}` }
               type="number"
               min="0"
               placeholder="0"
               name={ id }
             />
             <button
-              datatest-id={ `customer_products__button-card-add-item-${id}` }
+              data-testid={ `customer_products__button-card-add-item-${id}` }
               type="button"
               name="+"
               value={ id }
@@ -64,7 +62,7 @@ function Card() {
         ))}
       </div>
       {/* <button
-        datatest-id="customer_products__button-cart"
+        data-testid="customer_products__button-cart"
         type="button"
         onClick={ handleSubmitCart }
       >

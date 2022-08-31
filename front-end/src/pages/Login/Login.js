@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { requestLogin } from '../../utils/requests';
-import { changeEmail } from '../../redux/slices/client';
+import { changeEmail, changeName } from '../../redux/slices/client';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -34,14 +34,15 @@ function Login() {
 
     try {
       const { token, user } = await requestLogin('/login', { email, password });
-      console.log(user);
       const localObj = {
         name: user.name,
         email: user.email,
         role: user.role,
         token,
       };
-      localStorage.setItem('teste', JSON.stringify(localObj));
+      dispatch(changeName(user.name));
+      localStorage.setItem('user', JSON.stringify(localObj));
+
       navigate('/customer/products');
     } catch (error) {
       setIsValid(false);

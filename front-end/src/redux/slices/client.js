@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   name: '',
   email: '',
-  role: '',
 };
 
 export const clientSlice = createSlice({
@@ -20,5 +19,5 @@ export const clientSlice = createSlice({
 });
 
 export const {
-  changeEmail, changePassword, changeName,
+  changeEmail, changeName,
 } = clientSlice.actions;
