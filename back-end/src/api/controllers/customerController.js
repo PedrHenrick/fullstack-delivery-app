@@ -14,6 +14,11 @@ class CustomerController {
     const result = await this.service.getSale(request.params);
     return response.status(StatusCodes.OK).json(result);
   }
+
+  async getOneSaleController(_request, response) {
+    const result = await this.service.getOneSale();
+    return response.status(StatusCodes.OK).json(result);
+  }
 }
 
 module.exports = { CustomerController };

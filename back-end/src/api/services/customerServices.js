@@ -60,8 +60,14 @@ class CustomerService {
       const sale = await this.salesModel.findOne({ where: { id } });
       const SalesProducts = await this.salesProdutsModel.findAll({ where: { saleId: sale.id } });
 
-      const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts }
+      const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts };
       return finalSalesObject;
+    }
+
+    async getOneSale() {
+      const oneSale = await this.salesModel.findAll({ 
+        attributes: { exclude: 'deliveryAddress, sellerId' } });
+      return oneSale;
     }
   }
   
