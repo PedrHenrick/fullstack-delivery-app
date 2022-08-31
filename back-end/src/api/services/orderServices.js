@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const config = require('../../database/config/config');
+// const Users = require('../../database/models/user');
 
 const Environment = process.env.NODE_ENV || 'development';
 const sequelize = new Sequelize(config[Environment]);
@@ -32,7 +33,10 @@ class SalesService {
               quantity: product.quantity,
             }, { transaction: t });
           }))
-          return true;
+          return {
+            message: 'Venda adicionada com sucesso',
+            id: saleCreated.id,
+          };
         });
         return result;
       } catch (error) {
@@ -41,16 +45,42 @@ class SalesService {
     }
 
     async getSale({ id }) {
-      try {
-        const sale = await this.salesModel.findOne({include: [
-          // { model: this.salesProdutsModel },
-          { model: this.productsModel }
-        ], where: { id }});
-        return sale;
-      }
-      catch(err) {
-        console.log(err);
-      }
+      // const sale = await this.salesModel.findOne({
+      //   include: [
+      //     { model: this.productsModel, as: 'productsIds' },
+      //   ],
+      //   where: { id },
+      // });
+
+      // return sale
+
+      // const sale = await this.salesModel.findOne({ where: { id } });
+      // const SalesProducts = await this.salesProdutsModel.findAll({ where: { saleId: sale.id } });
+
+      // const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts }
+      // return finalSalesObject;
+
+      return { message: `faça sua escolha nobre guerreiro, e apartir dela receba o objeto do id: ${id}`}
+      
+      // outros exemplos:
+
+      // const userSale = await Users.findAll({
+      //   include: [
+      //     { model: this.salesModel, as: 'salle' },
+      //   ],
+      //   where: { id },
+      // });
+
+      // return userSale
+
+      // const saleUser = await this.salesModel.findAll({
+      //   include: [
+      //     { model: Users, as: 'user' },
+      //   ],
+      //   where: { id },
+      // });
+
+      // return saleUser
     }
   }
   
