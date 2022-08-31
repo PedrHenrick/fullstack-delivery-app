@@ -19,7 +19,6 @@ class CustomerController {
     const result = await this.service.getOneSale();
     return response.status(StatusCodes.OK).json(result);
   }
-
 }
 
 module.exports = { CustomerController };
