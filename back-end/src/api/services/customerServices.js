@@ -63,6 +63,11 @@ class CustomerService {
       const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts }
       return finalSalesObject;
     }
+
+    async getOneSale() {
+      const oneSale = await this.salesModel.findAll({ attributes: {exclude: 'deliveryAddress, sellerId'},});
+      return oneSale;
+    }
   }
   
   module.exports = { CustomerService };

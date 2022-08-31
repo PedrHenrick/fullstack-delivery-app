@@ -21,4 +21,9 @@ customerRouter.get(
   '/orders/:id',
   (request, response) => customerControllerInstance.getSaleController(request, response),
 );
+
+customerRouter.get(
+  '/orders',
+  (_request, response) => customerControllerInstance.getOneSaleController(_request, response),
+);
 module.exports = { customerRouter };
