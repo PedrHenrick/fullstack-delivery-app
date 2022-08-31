@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 
-class SallesController {
+class CustomerController {
   constructor(service) { 
     this.service = service;
   }
@@ -16,4 +16,4 @@ class SallesController {
   }
 }
 
-module.exports = { SallesController };
+module.exports = { CustomerController };

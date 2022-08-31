@@ -17,7 +17,7 @@ const saleObject = (sale) => {
   return object;
 };
 
-class SalesService {
+class CustomerService {
     constructor(sales, products, saleProduct) { 
       this.salesModel = sales;
       this.productsModel = products;
@@ -33,7 +33,7 @@ class SalesService {
           await Promise.all(sale.productsIds.map(async (product) => {
             const productExist = await this.productsModel
               .findOne({ where: { id: product.id } }, { transaction: t });
-
+            console.log(productExist);
             await this.salesProdutsModel.create({
               saleId: saleCreated.id, productId: productExist.id, quantity: product.quantity,
             }, { transaction: t });
@@ -42,7 +42,10 @@ class SalesService {
           return { message: 'Venda adicionada com sucesso', id: saleCreated.id };
         });
         return result;
-      } catch (error) { throw new Error(error); }
+      } catch (error) {
+        console.log(error);
+        throw new Error(error);
+      }
     }
 
     async getSale({ id }) {
@@ -86,4 +89,4 @@ class SalesService {
     }
   }
   
-  module.exports = { SalesService };
+  module.exports = { CustomerService };
