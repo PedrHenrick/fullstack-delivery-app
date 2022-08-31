@@ -5,43 +5,44 @@ const config = require('../../database/config/config');
 const Environment = process.env.NODE_ENV || 'development';
 const sequelize = new Sequelize(config[Environment]);
 
+const saleObject = (sale) => {
+  const object = {
+    userId: sale.userId,
+    sellerId: sale.sellerId,
+    totalPrice: sale.totalPrice,
+    deliveryAddress: sale.deliveryAddress,
+    deliveryNumber: sale.deliveryNumber,
+    status: sale.status,
+  };
+  return object;
+};
+
 class SalesService {
     constructor(sales, products, saleProduct) { 
       this.salesModel = sales;
       this.productsModel = products;
       this.salesProdutsModel = saleProduct;
+      this.message = 'faça sua escolha nobre guerreiro, e apartir dela receba o objeto do id: ';
     }
     
     async createSale(sale) {
       try {
         const result = await sequelize.transaction(async (t) => {
-          const saleCreated = await this.salesModel.create({
-            userId: sale.userId,
-            sellerId: sale.sellerId,
-            totalPrice: sale.totalPrice,
-            deliveryAddress: sale.deliveryAddress,
-            deliveryNumber: sale.deliveryNumber,
-            status: sale.status,
-          }, { transaction: t });
+          const saleCreated = await this.salesModel.create(saleObject(sale), { transaction: t });
 
           await Promise.all(sale.productsIds.map(async (product) => {
             const productExist = await this.productsModel
               .findOne({ where: { id: product.id } }, { transaction: t });
+
             await this.salesProdutsModel.create({
-              saleId: saleCreated.id,
-              productId: productExist.id,
-              quantity: product.quantity,
+              saleId: saleCreated.id, productId: productExist.id, quantity: product.quantity,
             }, { transaction: t });
-          }))
-          return {
-            message: 'Venda adicionada com sucesso',
-            id: saleCreated.id,
-          };
+          }));
+
+          return { message: 'Venda adicionada com sucesso', id: saleCreated.id };
         });
         return result;
-      } catch (error) {
-        throw new Error(error);
-      }
+      } catch (error) { throw new Error(error); }
     }
 
     async getSale({ id }) {
@@ -59,9 +60,10 @@ class SalesService {
 
       // const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts }
       // return finalSalesObject;
+      return {
+        message: `${this.message}${id}`,
+      };
 
-      return { message: `faça sua escolha nobre guerreiro, e apartir dela receba o objeto do id: ${id}`}
-      
       // outros exemplos:
 
       // const userSale = await Users.findAll({

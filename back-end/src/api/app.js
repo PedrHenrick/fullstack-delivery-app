@@ -14,7 +14,7 @@ class App {
     this.app.get('/coffee', (_req, res) => res.status(418).end());
     this.app.use(cors());
     this.app.use(router);
-    this.app.use('/images', express.static('public'))
+    this.app.use('/images', express.static('public'));
     this.app.use(ErrorMiddleware);
   }
 
