@@ -1,23 +1,13 @@
-const { DataTypes, Model } = require('sequelize');
+const { INTEGER, Model } = require('sequelize');
+const Products = require('./product');
+const Sales = require('./sale');
 const db = require('.');
 
 class SalesProduct extends Model {}
 
 SalesProduct.init({
-      saleId: {
-        type: DataTypes.INTEGER,
-        foreignKey: true,
-        primaryKey: true,
-        field: "sale_id",
-      },
-      productId: {
-        type: DataTypes.INTEGER,
-        foreignKey: true,
-        primaryKey: true,
-        field: "product_id",
-      },
       quantity: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         allowNull: false,
       },
     }, {
@@ -27,19 +17,17 @@ SalesProduct.init({
       timestamps: false,
     });
 
-  SalesProduct.associate = (models) => {
-    models.Products.belongsToMany(models.Sales, {
-      foreignKey: "productId",
-      as: "sales",
-      through: SalesProduct,
-      otherKey: 'saleId'
-    });
-    models.Sales.belongsToMany(models.Products, {
-      foreignKey: "saleId",
-      as: "products",
-      through: SalesProduct,
-      otherKey: 'productId'
-    });
-  };
+  Products.belongsToMany(Sales, {
+    as: "salesIds",
+    through: SalesProduct,
+    foreignKey: "productId",
+    otherKey: 'saleId'
+  });
+  Sales.belongsToMany(Products, {
+    as: "productsIds",
+    through: SalesProduct,
+    foreignKey: "saleId",
+    otherKey: 'productId'
+  });
 
 module.exports = SalesProduct;
