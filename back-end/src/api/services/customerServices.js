@@ -55,37 +55,13 @@ class CustomerService {
       //   ],
       //   where: { id },
       // });
-
       // return sale
 
-      // const sale = await this.salesModel.findOne({ where: { id } });
-      // const SalesProducts = await this.salesProdutsModel.findAll({ where: { saleId: sale.id } });
+      const sale = await this.salesModel.findOne({ where: { id } });
+      const SalesProducts = await this.salesProdutsModel.findAll({ where: { saleId: sale.id } });
 
-      // const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts }
-      // return finalSalesObject;
-      return {
-        message: `${this.message}${id}`,
-      };
-
-      // outros exemplos:
-
-      // const userSale = await Users.findAll({
-      //   include: [
-      //     { model: this.salesModel, as: 'salle' },
-      //   ],
-      //   where: { id },
-      // });
-
-      // return userSale
-
-      // const saleUser = await this.salesModel.findAll({
-      //   include: [
-      //     { model: Users, as: 'user' },
-      //   ],
-      //   where: { id },
-      // });
-
-      // return saleUser
+      const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts }
+      return finalSalesObject;
     }
   }
   
