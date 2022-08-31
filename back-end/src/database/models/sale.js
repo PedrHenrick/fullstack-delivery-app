@@ -1,53 +1,59 @@
-module.exports = (Sequelize, DataTypes) => {
-  const Sale = Sequelize.define('Sales', {
+const { INTEGER, STRING, DECIMAL, DATE, NOW, Model } = require('sequelize');
+const db = require('.');
+const Users = require('./user');
+
+class Sales extends Model {}
+
+Sales.init({
     id: {
-      type: DataTypes.INTEGER,
+      type: INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
     userId: {
-      type: DataTypes.INTEGER,
+      type: INTEGER,
       foreignKey: true,
       field: 'user_id',
     },
     sellerId: {
-      type: DataTypes.INTEGER,
+      type: INTEGER,
       foreignKey: true,
       field: 'seller_id',
     },
     totalPrice: {
-      type: DataTypes.DECIMAL(9, 2),
+      type: DECIMAL(9, 2),
       allowNull: false,
       field: 'total_price',
     },
     deliveryAddress: {
-      type: DataTypes.STRING(100),
+      type: STRING(100),
       allowNull: false,
       field: 'delivery_address',
     },
-    deliverynNumber: {
-      type: DataTypes.STRING(50),
+    deliveryNumber: {
+      type: STRING(50),
       allowNull: false,
       field: 'delivery_number',
     },
     saleDate: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
+      type: DATE,
+      defaultValue: NOW,
       field: 'sale_date',
     },
     status: {
-      type: DataTypes.STRING(50),
+      type: STRING(50),
       allowNull: false,
     },
-  }, { timestamps: false });
+  }, {
+    underscored: true,
+    sequelize: db,
+    modelName: 'sales',
+    timestamps: false,
+  });
 
-  Sale.associate = (models) => {
-    Sale.belongsTo(models.Users, {foreignKey: 'userId', as: 'sales'})
-  };
-  Sale.associate = (models) => {
-    Sale.belongsTo(models.Users, {foreignKey: 'sellerId', as: 'sales'})
-  };
+  Users.hasMany(Sales, { foreignKey: 'id' });
+  
+  Sales.belongsTo(Users, { foreignKey: 'userId', as: 'user' });
+  Sales.belongsTo(Users, { foreignKey: 'sellerId', as: 'seller' });
 
-  return Sale;
-};
-
+  module.exports = Sales;
