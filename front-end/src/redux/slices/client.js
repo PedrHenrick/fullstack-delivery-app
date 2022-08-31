@@ -18,9 +18,12 @@ export const clientSlice = createSlice({
     changeName: (state, action) => {
       state.name = action.payload;
     },
+    showProduct: (state, action) => {
+      state.product = action.payload;
+    },
   },
 });
 
 export const {
-  changeEmail, changePassword, changeName,
+  changeEmail, changePassword, changeName, showProduct,
 } = clientSlice.actions;
