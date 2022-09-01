@@ -16,9 +16,12 @@ export const clientSlice = createSlice({
     changeEmail: (state, action) => {
       state.email = action.payload;
     },
+    changeRole: (state, action) => {
+      state.role = action.payload;
+    },
   },
 });
 
 export const {
-  changeEmail, changePassword, changeName,
+  changeEmail, changeName, changeRole,
 } = clientSlice.actions;
