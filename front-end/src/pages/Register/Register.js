@@ -39,17 +39,13 @@ function Register() {
     dispatch(changePassword(password));
 
     try {
-      console.log('entrei no try');
-      const { token } = await requestLogin(
+      await requestLogin(
         '/register',
         { email, password, name: userName },
       );
-      console.log(token);
       navigate('/customer/products');
     } catch (error) {
-      console.log('entrei no catch');
       setIsValid(false);
-      console.log('erro do try/catch', error);
     }
   };
 

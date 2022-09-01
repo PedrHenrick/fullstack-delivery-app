@@ -33,14 +33,10 @@ function Login() {
     dispatch(changePassword(password));
 
     try {
-      console.log('entrei no try');
-      const { token } = await requestLogin('/login', { email, password });
-      console.log(token);
+      await requestLogin('/login', { email, password });
       navigate('/customer/products');
     } catch (error) {
-      console.log('entrei no catch');
       setIsValid(false);
-      console.log('erro do try/catch', error);
     }
   };
 
