@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import { requestLogin } from '../../utils/requests';
-import { changeEmail, changePassword, changeName } from '../../redux/slices/client';
+import { requestLogin, requestRegisterAdmin } from '../../utils/requests';
+import { changeEmail, changeName, changeRole } from '../../redux/slices/client';
 
 function Register() {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const [isValid, setIsValid] = useState(true);
   const NUMBER_SIX = 6;
   const USERNAME_LENGTH = 12;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isAdmin = location.pathname.match(/admin/i);
 
   const handleChange = ({ target: { name, value } }) => {
     if (name === 'userName') {
@@ -26,10 +29,14 @@ function Register() {
     if (name === 'password') {
       setPassword(value);
     }
+    if (name === 'role') {
+      setRole(value);
+    }
   };
 
   const isButtonDisabled = () => !(/\S+@\S+\.\S+/).test(email)
-    || (password.length < NUMBER_SIX) || (userName.length < USERNAME_LENGTH);
+    || (password.length < NUMBER_SIX) || (userName.length < USERNAME_LENGTH)
+    || !role;
 
   const handleClick = async (event) => {
     event.preventDefault();
@@ -38,18 +45,35 @@ function Register() {
     localStorage.setItem('name', userName);
     dispatch(changeEmail(email));
     localStorage.setItem('email', email);
-    dispatch(changePassword(password));
+    dispatch(changeRole(role));
 
-    try {
-      const { token } = await requestLogin(
-        '/register',
-        { email, password, name: userName },
-      );
-      console.log(token);
-      navigate('/customer/products');
-    } catch (error) {
-      setIsValid(false);
-      console.log('erro do try/catch', error);
+    if (!isAdmin) {
+      try {
+        const { token, user } = await requestLogin(
+          '/register',
+          { email, password, name: userName },
+        );
+        const localObj = {
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          token,
+        };
+        localStorage.setItem('teste', JSON.stringify(localObj));
+        navigate('/customer/products');
+      } catch (error) {
+        setIsValid(false);
+      }
+    } else {
+      try {
+        await requestRegisterAdmin(
+          '/register',
+          { email, password, name: userName, role },
+        );
+        // navigate('/customer/products');
+      } catch (error) {
+        setIsValid(false);
+      }
     }
   };
 
@@ -58,7 +82,9 @@ function Register() {
       <form>
         <label htmlFor="userName">
           <input
-            data-testid="common_register__input-name"
+            data-testid={
+              isAdmin ? 'admin_manage__input-name' : 'common_register__input-name'
+            }
             type="text"
             name="userName"
             placeholder="Digite seu nome"
@@ -68,7 +94,9 @@ function Register() {
         </label>
         <label htmlFor="email">
           <input
-            data-testid="common_register__input-email"
+            data-testid={
+              isAdmin ? 'admin_manage__input-email' : 'common_register__input-email'
+            }
             type="email"
             name="email"
             placeholder="Digite seu email"
@@ -78,7 +106,9 @@ function Register() {
         </label>
         <label htmlFor="password">
           <input
-            data-testid="common_register__input-password"
+            data-testid={
+              isAdmin ? 'admin_manage__input-password' : 'common_register__input-password'
+            }
             type="password"
             name="password"
             placeholder="Digite sua senha"
@@ -86,8 +116,25 @@ function Register() {
             onChange={ handleChange }
           />
         </label>
+        {isAdmin
+        && (
+          <label htmlFor="role">
+            <select
+              onChange={ handleChange }
+              name="role"
+              data-testid="admin_manage__select-role"
+            >
+              <option value="vendedor">Vendedor</option>
+              <option value="cliente">Cliente</option>
+              <option selected value="administrator">Administrator</option>
+              <option value="customer">Customer</option>
+            </select>
+          </label>
+        ) }
         <button
-          data-testid="common_register__button-register"
+          data-testid={
+            isAdmin ? 'admin_manage__button-register' : 'common_register__button-register'
+          }
           type="button"
           disabled={ isButtonDisabled() }
           onClick={ handleClick }
@@ -97,7 +144,12 @@ function Register() {
         {
           !isValid
           && (
-            <p data-testid="common_register__element-invalid_register">
+            <p
+              data-testid={
+                isAdmin ? 'admin_manage__element-invalid_register'
+                  : 'common_register__element-invalid_register'
+              }
+            >
               Usuário já existe
             </p>
           )
