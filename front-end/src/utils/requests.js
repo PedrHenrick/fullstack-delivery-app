@@ -19,4 +19,11 @@ export const requestUsers = async (endpoint) => {
   return data;
 };
 
+export const requestRegisterAdmin = async (endpoint, body, token) => {
+  const { data } = await api.post(endpoint, body, {
+    headers: { Authorization: token },
+  });
+  return data;
+};
+
 export default api;
