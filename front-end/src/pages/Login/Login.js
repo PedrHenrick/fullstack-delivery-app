@@ -34,7 +34,6 @@ function Login() {
 
     try {
       const { token, user } = await requestLogin('/login', { email, password });
-      console.log(user);
       const localObj = {
         name: user.name,
         email: user.email,
@@ -42,7 +41,8 @@ function Login() {
         token,
       };
       localStorage.setItem('teste', JSON.stringify(localObj));
-      navigate('/customer/products');
+      if (user.role === 'administrator') navigate('/admin/manage');
+      else navigate('/customer/products');
     } catch (error) {
       setIsValid(false);
       console.log('erro do try/catch', error);
