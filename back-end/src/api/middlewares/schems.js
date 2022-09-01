@@ -13,9 +13,9 @@ const registerSchema = joi.object({
 });
 
 const postSaleSchema = joi.object({
-  userId: joi.number().min(0).required(),
-  sellerId: joi.number().min(0).required(),
-  totalPrice: joi.number().min(0).required(),
+  userId: joi.number().min(1).required(),
+  sellerId: joi.number().min(1).required(),
+  totalPrice: joi.number().min(1).required(),
   deliveryAddress: joi.string().required(),
   deliveryNumber: joi.string().required(),
   productsIds: joi.array().items(
