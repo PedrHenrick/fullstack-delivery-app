@@ -47,35 +47,26 @@ class CustomerService {
     }
 
     async getSale({ id }) {
-      // const sale = await this.salesModel.findOne({
-      //   include: [
-      //     { model: this.productsModel, as: 'productsIds' },
-      //   ],
-      //   where: { id },
-      // });
-      // return sale
-
       const sale = await this.salesModel.findOne({ where: { id } });
       const SalesProducts = await this.salesProdutsModel.findAll({ where: { saleId: sale.id } });
 
-      const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts }
+      const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts };
       return finalSalesObject;
     }
 
     async updateSaleStatus({ id }, { status }) {
-      if(
-        status === 'Pendente' 
-        || status === 'Preparando'
+      if (
+        status === 'Preparando'
         || status === 'Em Trânsito'
         || status === 'Entregue'
       ) {
         const sale = await this.salesModel.findOne({ where: { id } });
-        if (!sale) throw new Error('saleIsNotFound')
-        await this.salesModel.update({ status }, { where: { id: sale.id } })
+        if (!sale) throw new Error('saleIsNotFound');
+        await this.salesModel.update({ status }, { where: { id: sale.id } });
       
-        return { message: `Venda com o id: ${id}, atualizada com sucesso` }
+        return { message: `Venda com o id: ${id}, atualizada com sucesso` };
       }
-      throw new Error('invalidStatus')
+      throw new Error('invalidStatus');
     }
   }
   

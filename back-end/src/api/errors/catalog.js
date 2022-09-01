@@ -40,7 +40,7 @@ const errorCatalog = {
   invalidStatus: {
     error: 'status incorreto',
     httpStatus: StatusCodes.BAD_REQUEST,
-  }
+  },
 };
 
 module.exports = { errorCatalog };

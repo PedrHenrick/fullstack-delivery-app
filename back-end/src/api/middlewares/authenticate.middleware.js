@@ -1,7 +1,6 @@
 const User = require('../../database/models/user');
 const { authenticateToken } = require('../utils/JWTToken');
 
-
 const authenticateMiddleware = async (req, _res, next) => {
   const token = req.headers.authorization;
   if (!token) throw new Error('unauthorized');

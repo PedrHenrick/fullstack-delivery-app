@@ -12,8 +12,8 @@ const authenticateToken = (token) => {
     const userInfo = jwt.verify(token, SECRET, jwtConfig);
     return userInfo;
   } catch (error) {
-    throw new Error('ExpiredOrInvalidToken')
+    throw new Error('ExpiredOrInvalidToken');
   }
-}
+};
 
 module.exports = { generateJWTToken, authenticateToken };
