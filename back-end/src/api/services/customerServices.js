@@ -58,9 +58,9 @@ class CustomerService {
       // return sale
 
       const sale = await this.salesModel.findOne({ where: { id } });
-      const SalesProducts = await this.salesProdutsModel.findAll({ where: { sale_id: sale.id } });
+      const SalesProducts = await this.salesProdutsModel.findAll({ where: { 'sale_id': sale.id } });
 
-      const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts }
+      const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts };
       return finalSalesObject;
     }
   }
