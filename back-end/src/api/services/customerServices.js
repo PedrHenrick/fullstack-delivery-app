@@ -12,7 +12,6 @@ const saleObject = (sale) => {
     totalPrice: sale.totalPrice,
     deliveryAddress: sale.deliveryAddress,
     deliveryNumber: sale.deliveryNumber,
-    status: sale.status,
   };
   return object;
 };
@@ -33,8 +32,8 @@ class CustomerService {
           await Promise.all(sale.productsIds.map(async (product) => {
             const productExist = await this.productsModel
               .findOne({ where: { id: product.id } }, { transaction: t });
-            console.log(productExist);
-            await this.salesProdutsModel.create({
+
+              await this.salesProdutsModel.create({
               saleId: saleCreated.id, productId: productExist.id, quantity: product.quantity,
             }, { transaction: t });
           }));
@@ -43,7 +42,6 @@ class CustomerService {
         });
         return result;
       } catch (error) {
-        console.log(error);
         throw new Error(error);
       }
     }
@@ -62,6 +60,22 @@ class CustomerService {
 
       const finalSalesObject = { ...sale.dataValues, productsSold: SalesProducts }
       return finalSalesObject;
+    }
+
+    async updateSaleStatus({ id }, { status }) {
+      if(
+        status === 'Pendente' 
+        || status === 'Preparando'
+        || status === 'Em Trânsito'
+        || status === 'Entregue'
+      ) {
+        const sale = await this.salesModel.findOne({ where: { id } });
+        if (!sale) throw new Error('saleIsNotFound')
+        await this.salesModel.update({ status }, { where: { id: sale.id } })
+      
+        return { message: `Venda com o id: ${id}, atualizada com sucesso` }
+      }
+      throw new Error('invalidStatus')
     }
   }
   
