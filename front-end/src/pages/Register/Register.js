@@ -9,7 +9,7 @@ function Register() {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('customer');
   const [isValid, setIsValid] = useState(true);
   const NUMBER_SIX = 6;
   const USERNAME_LENGTH = 12;
@@ -70,11 +70,14 @@ function Register() {
           '/register',
           { email, password, name: userName, role },
         );
-        // navigate('/customer/products');
       } catch (error) {
         setIsValid(false);
       }
     }
+    setUserName('');
+    setEmail('');
+    setPassword('');
+    setRole('');
   };
 
   return (
@@ -126,8 +129,8 @@ function Register() {
             >
               <option value="vendedor">Vendedor</option>
               <option value="cliente">Cliente</option>
-              <option selected value="administrator">Administrator</option>
-              <option value="customer">Customer</option>
+              <option value="administrator">Administrator</option>
+              <option selected value="customer">Customer</option>
             </select>
           </label>
         ) }
