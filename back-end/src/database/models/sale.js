@@ -42,6 +42,7 @@ Sales.init({
     },
     status: {
       type: STRING(50),
+      defaultValue: 'Pendente',
       allowNull: false,
     },
   }, {
