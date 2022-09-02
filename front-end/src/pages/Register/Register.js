@@ -59,7 +59,7 @@ function Register() {
           role: user.role,
           token,
         };
-        localStorage.setItem('teste', JSON.stringify(localObj));
+        localStorage.setItem('userData', JSON.stringify(localObj));
         navigate('/customer/products');
       } catch (error) {
         setIsValid(false);
