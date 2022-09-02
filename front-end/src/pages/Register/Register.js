@@ -59,7 +59,6 @@ function Register() {
           role: user.role,
           token,
         };
-        console.log('aqui nao');
         localStorage.setItem('userData', JSON.stringify(localObj));
         navigate('/customer/products');
       } else {
