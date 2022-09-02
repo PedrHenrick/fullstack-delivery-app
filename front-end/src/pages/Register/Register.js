@@ -17,7 +17,7 @@ function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const isAdmin = location.pathname.match(/admin/i);
+  const isAdmin = (/admin/i).test(location.pathname);
 
   const handleChange = ({ target: { name, value } }) => {
     setIsValid(true);
@@ -47,8 +47,8 @@ function Register() {
     localStorage.setItem('email', email);
     dispatch(changeRole(role));
 
-    if (!isAdmin) {
-      try {
+    try {
+      if (!isAdmin) {
         const { token, user } = await requestLogin(
           '/register',
           { email, password, name: userName },
@@ -59,22 +59,19 @@ function Register() {
           role: user.role,
           token,
         };
+        console.log('aqui nao');
         localStorage.setItem('userData', JSON.stringify(localObj));
         navigate('/customer/products');
-      } catch (error) {
-        setIsValid(false);
-      }
-    } else {
-      try {
+      } else {
         const { token } = JSON.parse(localStorage.getItem('userData'));
         await requestRegisterAdmin(
           '/registerAdmin',
           { email, password, name: userName, role },
           token,
         );
-      } catch (error) {
-        setIsValid(false);
       }
+    } catch (error) {
+      setIsValid(false);
     }
     setUserName('');
     setEmail('');
