@@ -36,8 +36,7 @@ function Register() {
   };
 
   const isButtonDisabled = () => !(/\S+@\S+\.\S+/).test(email)
-    || (password.length < NUMBER_SIX) || (userName.length < USERNAME_LENGTH)
-    || !role;
+    || (password.length < NUMBER_SIX) || (userName.length < USERNAME_LENGTH);
 
   const handleClick = async (event) => {
     event.preventDefault();
@@ -141,7 +140,7 @@ function Register() {
             isAdmin ? 'admin_manage__button-register' : 'common_register__button-register'
           }
           type="button"
-          disabled={ isButtonDisabled() }
+          disabled={ isAdmin ? isButtonDisabled() : isButtonDisabled() || !role }
           onClick={ handleClick }
         >
           Cadastrar
