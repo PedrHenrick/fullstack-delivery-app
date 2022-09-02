@@ -9,7 +9,7 @@ function Register() {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('customer');
+  const [role, setRole] = useState('');
   const [isValid, setIsValid] = useState(true);
   const NUMBER_SIX = 6;
   const USERNAME_LENGTH = 12;
@@ -129,10 +129,9 @@ function Register() {
               name="role"
               data-testid="admin_manage__select-role"
             >
-              <option value="vendedor">Vendedor</option>
-              <option value="cliente">Cliente</option>
-              <option value="administrator">Administrator</option>
-              <option selected value="customer">Customer</option>
+              <option value="seller">Vendedor</option>
+              <option selected value="customer">Cliente</option>
+              <option value="administrator">Administrador</option>
             </select>
           </label>
         ) }
