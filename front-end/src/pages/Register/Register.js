@@ -20,6 +20,7 @@ function Register() {
   const isAdmin = location.pathname.match(/admin/i);
 
   const handleChange = ({ target: { name, value } }) => {
+    setIsValid(true);
     if (name === 'userName') {
       setUserName(value);
     }
