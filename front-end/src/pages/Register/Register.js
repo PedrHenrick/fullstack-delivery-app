@@ -66,9 +66,11 @@ function Register() {
       }
     } else {
       try {
+        const { token } = JSON.parse(localStorage.getItem('userData'));
         await requestRegisterAdmin(
-          '/register',
+          '/registerAdmin',
           { email, password, name: userName, role },
+          token,
         );
       } catch (error) {
         setIsValid(false);
