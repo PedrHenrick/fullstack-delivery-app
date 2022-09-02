@@ -68,7 +68,6 @@ function Register() {
           { email, password, name: userName, role },
           token,
         );
-        console.log('flopou');
       }
     } catch (error) {
       setIsValid(false);
