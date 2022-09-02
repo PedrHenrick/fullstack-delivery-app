@@ -39,7 +39,6 @@ class UserService {
     if (adminRole) payload.role = role;
 
     const token = generateJWTToken({ ...payload });
-    console.log('fim')
     return { token, user };
   }
 
