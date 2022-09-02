@@ -140,7 +140,7 @@ function Register() {
             isAdmin ? 'admin_manage__button-register' : 'common_register__button-register'
           }
           type="button"
-          disabled={ isAdmin ? isButtonDisabled() : isButtonDisabled() || !role }
+          disabled={ !isAdmin ? isButtonDisabled() : isButtonDisabled() || !role }
           onClick={ handleClick }
         >
           Cadastrar
