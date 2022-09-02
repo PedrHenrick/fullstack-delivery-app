@@ -68,6 +68,7 @@ function Register() {
           { email, password, name: userName, role },
           token,
         );
+        console.log('flopou');
       }
     } catch (error) {
       setIsValid(false);
@@ -146,7 +147,7 @@ function Register() {
           && (
             <p
               data-testid={
-                isAdmin ? 'admin_manage__element-invalid_register'
+                isAdmin ? 'admin_manage__element-invalid-register'
                   : 'common_register__element-invalid_register'
               }
             >
