@@ -40,11 +40,10 @@ function Register() {
     localStorage.setItem('email', email);
 
     try {
-      const { token } = await requestLogin(
+      await requestLogin(
         '/register',
         { email, password, name: userName },
       );
-      console.log(token);
       navigate('/customer/products');
     } catch (error) {
       setIsValid(false);
