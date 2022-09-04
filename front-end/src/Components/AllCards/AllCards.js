@@ -6,24 +6,29 @@ import { requestProducts } from '../../utils/requests';
 
 function AllCards() {
   const [products, setProducts] = useState([]);
+  const [valueCart, setValueCart] = useState(0);
+  const [addOrRemoveCart, setaddOrRemoveCart] = useState(true);
 
   useEffect(() => {
     (async () => {
       const data = await requestProducts('/product');
       const result = data.map((product) => ({ ...product }));
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      if (cart) {
+        let count = 0;
+        cart.forEach((item) => {
+          count += parseFloat(item.subTotal);
+        });
+        setValueCart(count);
+      }
 
       setProducts(await result);
     })();
-  }, []);
-
-  // const calculateCart = () => {
-
-  // };
+  }, [addOrRemoveCart]);
 
   const handleClick = (prodId, prodQnt) => {
     const cart = JSON.parse(localStorage.getItem('cart'));
     const item = products.find((product) => +product.id === +prodId);
-    console.log(typeof item.price);
 
     if (!cart) {
       localStorage.setItem('cart', JSON.stringify(
@@ -31,6 +36,7 @@ function AllCards() {
           quantity: prodQnt,
           subTotal: (prodQnt * +item.price).toFixed(2).replace('.', ',') }],
       ));
+      setaddOrRemoveCart(!addOrRemoveCart);
       return 'oi';
     }
     if (!item) {
@@ -40,11 +46,13 @@ function AllCards() {
           quantity: prodQnt,
           subTotal: (prodQnt * item.price).toFixed(2).replace('.', ',') }],
       ));
+      setaddOrRemoveCart(!addOrRemoveCart);
       return 'oie';
     }
     const filter = cart.filter((product) => product.id !== +prodId);
     if (prodQnt <= 0) {
       localStorage.setItem('cart', JSON.stringify(filter));
+      setaddOrRemoveCart(!addOrRemoveCart);
       return 'oiee';
     }
     localStorage.setItem('cart', JSON.stringify([
@@ -53,6 +61,7 @@ function AllCards() {
         quantity: prodQnt,
         subTotal: (prodQnt * +item.price).toFixed(2).replace('.', ',') },
     ]));
+    setaddOrRemoveCart(!addOrRemoveCart);
     return 'ola';
   };
 
@@ -63,7 +72,7 @@ function AllCards() {
         type="button"
         // onClick={ }
       >
-        {/* { `Total R$:${}` } */}
+        {`Total R$: ${valueCart}`}
       </button>
       <div>
         { products.length
