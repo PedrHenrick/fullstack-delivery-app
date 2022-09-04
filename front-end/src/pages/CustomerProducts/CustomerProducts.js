@@ -1,13 +1,13 @@
 import React from 'react';
 
-import Card from '../../Components/Card/Card';
+import AllCards from '../../Components/AllCards/AllCards';
 import Header from '../../Components/Header/Header';
 
 function CustomerProducts() {
   return (
     <section>
       <Header />
-      <Card />
+      <AllCards />
     </section>
 
   );

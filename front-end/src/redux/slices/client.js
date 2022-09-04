@@ -5,7 +5,7 @@ const initialState = {
   email: '',
 };
 
-export const clientSlice = createSlice({
+const clientSlice = createSlice({
   name: 'client',
   initialState,
   reducers: {
@@ -18,6 +18,6 @@ export const clientSlice = createSlice({
   },
 });
 
-export const {
-  changeEmail, changeName,
-} = clientSlice.actions;
+export const { changeEmail, changeName } = clientSlice.actions;
+
+export default clientSlice.reducer;
