@@ -1,10 +1,6 @@
 const { INTEGER, STRING, DECIMAL, DATE, NOW, Model } = require('sequelize');
 const db = require('.');
-<<<<<<< .merge_file_UX1yRG
-=======
 const Users = require('./user');
->>>>>>> .merge_file_W2HetM
-
 class Sales extends Model {}
 
 Sales.init({

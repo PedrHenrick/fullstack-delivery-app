@@ -14,11 +14,7 @@ Product.init({
       allowNull: false,
     },
     price: {
-<<<<<<< .merge_file_Gum7QV
-      type: DataTypes.DECIMAL(),
-=======
       type: DECIMAL(4,2),
->>>>>>> .merge_file_talQTY
       allowNull: false
     },
     urlImage: {
