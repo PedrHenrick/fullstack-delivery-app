@@ -3,7 +3,7 @@ const UserModel = require('../../database/models/user');
 const UserService = require('../services/userServices');
 const UserController = require('../controllers/userController');
 const { validateMiddleware } = require('../middlewares/validate.middleware');
-const authenticateMiddleware = require('../middlewares/authenticate.middleware');
+const { authenticateMiddleware } = require('../middlewares/authenticate.middleware');
 const { loginSchema, registerSchema, adminRegisterSchema } = require('../middlewares/schems');
 
 const userRouter = Router();
