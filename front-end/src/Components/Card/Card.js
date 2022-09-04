@@ -7,9 +7,8 @@ function Card({ id, image, name, price, handleClick }) {
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const findProduct = cart.find((product) => product.id === id);
-    console.log(findProduct);
     if (findProduct) {
-      return setQuant(+findProduct.qtde);
+      return setQuant(+findProduct.quantity);
     }
   }, [id]);
 
@@ -94,9 +93,7 @@ Card.propTypes = {
   id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.shape({
-    replace: PropTypes.func.isRequired,
-  }).isRequired,
+  price: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
 
