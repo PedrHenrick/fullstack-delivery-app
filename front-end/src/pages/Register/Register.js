@@ -40,15 +40,15 @@ function Register() {
     localStorage.setItem('email', email);
 
     try {
-      const { token } = await requestLogin(
-        '/register',
-        { email, password, name: userName },
+      await requestLogin(
+        await requestLogin(
+          '/register',
+          { email, password, name: userName },
+        ),
       );
-      console.log(token);
       navigate('/customer/products');
     } catch (error) {
       setIsValid(false);
-      console.log('erro do try/catch', error);
     }
   };
 

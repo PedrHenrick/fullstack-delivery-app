@@ -7,4 +7,13 @@ const jwtConfig = { algorithm: 'HS256' };
 
 const generateJWTToken = (payload) => jwt.sign((payload), SECRET, jwtConfig);
 
-module.exports = { generateJWTToken, jwtConfig };
+const authenticateToken = (token) => {
+  try {
+    const userInfo = jwt.verify(token, SECRET, jwtConfig);
+    return userInfo;
+  } catch (error) {
+    throw new Error('ExpiredOrInvalidToken');
+  }
+};
+
+module.exports = { generateJWTToken, authenticateToken };

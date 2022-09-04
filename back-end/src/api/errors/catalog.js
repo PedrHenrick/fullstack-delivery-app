@@ -29,6 +29,18 @@ const errorCatalog = {
     error: 'Erro ao procurar usuário do token.',
     httpStatus: StatusCodes.UNAUTHORIZED,
   },
+  saleIsNotFound: {
+    error: 'Venda não encontrada',
+    httpStatus: StatusCodes.NOT_FOUND,
+  },
+  userIsNotASeller: {
+    error: 'O usuário não é um vendedor',
+    httpStatus: StatusCodes.UNAUTHORIZED,
+  },
+  invalidStatus: {
+    error: 'status incorreto',
+    httpStatus: StatusCodes.BAD_REQUEST,
+  },
 };
 
 module.exports = { errorCatalog };

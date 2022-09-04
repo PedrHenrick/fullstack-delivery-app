@@ -42,11 +42,8 @@ function Login() {
       };
       dispatch(changeName(user.name));
       localStorage.setItem('user', JSON.stringify(localObj));
-
-      navigate('/customer/products');
     } catch (error) {
       setIsValid(false);
-      console.log('erro do try/catch', error);
     }
   };
 

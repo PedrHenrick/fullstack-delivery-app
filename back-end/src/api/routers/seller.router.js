@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const SellerService = require('../services/sellerServices');
 const SellerController = require('../controllers/sellerController');
-const authenticateMiddleware = require('../middlewares/authenticate.middleware');
+const { authenticateMiddleware } = require('../middlewares/authenticate.middleware');
 const Sales = require('../../database/models/sale');
 
 const sellerRouter = Router();
