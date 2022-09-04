@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 
 import Card from '../Card/Card';
 import { requestProducts } from '../../utils/requests';
@@ -8,6 +9,8 @@ function AllCards() {
   const [products, setProducts] = useState([]);
   const [valueCart, setValueCart] = useState(0);
   const [addOrRemoveCart, setaddOrRemoveCart] = useState(true);
+
+  // const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -25,6 +28,8 @@ function AllCards() {
       setProducts(await result);
     })();
   }, [addOrRemoveCart]);
+
+  // const isButtonDisabled = () => !JSON.parse(localStorage.getItem('cart')).length > 0;
 
   const handleClick = (prodId, prodQnt) => {
     const cart = JSON.parse(localStorage.getItem('cart'));
@@ -70,7 +75,8 @@ function AllCards() {
       <button
         data-testid="customer_products__button-cart"
         type="button"
-        // onClick={ }
+        // disabled={ isButtonDisabled() }
+        // onClick={ () => navigate('/customer/checkout') }
       >
         {`Total R$: ${valueCart}`}
       </button>
