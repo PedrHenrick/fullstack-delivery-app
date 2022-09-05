@@ -2,6 +2,7 @@ const { Router } = require('express');
 const SalesModel = require('../../database/models/sale');
 const Product = require('../../database/models/product');
 const SalesProduct = require('../../database/models/saleProduct');
+const Users = require('../../database/models/user');
 const { CustomerService } = require('../services/customerServices');
 const { CustomerController } = require('../controllers/customerController');
 const {
@@ -13,7 +14,7 @@ const { postSaleSchema, updateStatusSale } = require('../middlewares/schems');
 
 const customerRouter = Router();
 
-const customerServiceInstance = new CustomerService(SalesModel, Product, SalesProduct);
+const customerServiceInstance = new CustomerService(SalesModel, Product, SalesProduct, Users);
 const customerControllerInstance = new CustomerController(customerServiceInstance);
 
 customerRouter.post(
@@ -32,11 +33,17 @@ customerRouter.get(
   '/orders',
   (_request, response) => customerControllerInstance.getOneSaleController(_request, response),
 );
+
 customerRouter.put(
   '/orders/details/:id',
   authenticateSellerMiddleware,
   validateMiddleware(updateStatusSale),
   (request, response) => customerControllerInstance.updateSaleStatus(request, response),
+);
+
+customerRouter.get(
+  '/orders/details/:id',
+  (request, response) => customerControllerInstance.getDetailController(request, response),
 );
 
 module.exports = { customerRouter };
