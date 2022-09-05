@@ -10,7 +10,7 @@ function SellerOrders() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkZ1bGFuYSBQZXJlaXJhIiwiZW1haWwiOiJmdWxhbmFAZGVsaXZlcnlhcHAuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY2MTgxMjE4OX0.azEUd0ZfcYZGteyA3x6jxZzoJ-HQ3R3ZywehlwCbTWg`;
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkZ1bGFuYSBQZXJlaXJhIiwiZW1haWwiOiJmdWxhbmFAZGVsaXZlcnlhcHAuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY2MjQwMzQ2NH0.WttPMgbR98G5LfsEpnAkUvaI_sQQB5Pw8Nbd9J95lhI';
 
   const NUMBER_8 = 8;
   const NUMBER_4 = 4;
@@ -50,7 +50,7 @@ function SellerOrders() {
 
     dispatch(showProduct(product));
 
-    // navigate('/products-details');
+    navigate('/products-details');
   };
 
   return (
