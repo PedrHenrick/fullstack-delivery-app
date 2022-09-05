@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
-import { requestUsersWithToken } from '../../utils/requests';
+import React, { useState, useEffect } from 'react';
+import { deleteUser, requestUsersWithToken } from '../../utils/requests';
 
 export default function DenseTable() {
   const [allUsers, setAllUsers] = useState([]);
+  const [tableAtt, setTableAtt] = useState(true);
 
   const { token } = JSON.parse(localStorage.getItem('userData'));
-  requestUsersWithToken('/users', token).then((e) => setAllUsers(e));
+
+  useEffect(() => {
+    (() => {
+      requestUsersWithToken('/users', token).then((e) => setAllUsers(e));
+    })();
+  }, [token, tableAtt]);
 
   return (
     <table>
@@ -23,11 +29,17 @@ export default function DenseTable() {
           <td datatest-id={ `admin_manage__element-user-table-role-${id}` }>
             {role}
           </td>
-          <td
-            datatest-id={ `admin_manage__element-user-table-remove-${id}` }
-            // onClick={ async () => await deleteUser({ id }, token) }
-          >
-            Excluir
+          <td>
+            <button
+              type="button"
+              datatest-id={ `admin_manage__element-user-table-remove-${id}` }
+              onClick={ async () => {
+                await deleteUser(`/user/${id}`, { id }, token);
+                setTableAtt(!tableAtt);
+              } }
+            >
+              Excluir
+            </button>
           </td>
         </tr>
       ))}
