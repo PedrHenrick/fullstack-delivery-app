@@ -1,29 +1,28 @@
-const { DataTypes, Model } = require('sequelize');
+const { INTEGER, STRING, Model } = require('sequelize');
 const db = require('.');
-const Sales = require('./sale');
 
-class User extends Model {}
+class Users extends Model {}
 
-User.init({
+Users.init({
   id: {
-    type: DataTypes.INTEGER,
+    type: INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
   name: {
-    type: DataTypes.STRING,
+    type: STRING,
     allowNull: false,
   },
   email: {
-    type: DataTypes.STRING,
+    type: STRING,
     allowNull: false,
   },
   password: {
-    type: DataTypes.STRING,
+    type: STRING,
     allowNull: false,
   },
   role: {
-    type: DataTypes.STRING,
+    type: STRING,
     defaultValue: 'cliente',
   },
 }, {
@@ -33,6 +32,4 @@ User.init({
   timestamps: false,
 });
 
-User.hasMany(Sales, {foreignKey: 'id', as: 'user'})
-
-module.exports = User;
+module.exports = Users;

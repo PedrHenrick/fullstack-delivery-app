@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { requestLogin } from '../../utils/requestLogin';
-import { changeEmail, changePassword } from '../../redux/slices/client';
+import { requestLogin } from '../../utils/requests';
+import { changeEmail } from '../../redux/slices/client';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValid, setIsValid] = useState(true);
+
   const NUMBER_SIX = 6;
 
   const dispatch = useDispatch();
@@ -30,15 +31,19 @@ function Login() {
     event.preventDefault();
 
     dispatch(changeEmail(email));
-    dispatch(changePassword(password));
 
     try {
-      console.log('entrei no try');
-      const { token } = await requestLogin('/login', { email, password });
-      console.log(token);
-      navigate('/customer/products');
+      const { token, user } = await requestLogin('/login', { email, password });
+      const localObj = {
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        token,
+      };
+      localStorage.setItem('userData', JSON.stringify(localObj));
+      if (user.role === 'administrator') navigate('/admin/manage');
+      else navigate('/customer/products');
     } catch (error) {
-      console.log('entrei no catch');
       setIsValid(false);
       console.log('erro do try/catch', error);
     }

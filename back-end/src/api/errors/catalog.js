@@ -17,12 +17,16 @@ const errorCatalog = {
     error: 'Incorrect password',
     httpStatus: StatusCodes.BAD_REQUEST,
   },
-  unauthorized: {
+  Unauthorized: {
     error: 'Unauthorized',
     httpStatus: StatusCodes.UNAUTHORIZED,
   },
   ExpiredOrInvalidToken: {
     error: 'Expired or invalid token',
+    httpStatus: StatusCodes.UNAUTHORIZED,
+  },
+  InvalidUserToken: {
+    error: 'Erro ao procurar usuário do token.',
     httpStatus: StatusCodes.UNAUTHORIZED,
   },
 };
