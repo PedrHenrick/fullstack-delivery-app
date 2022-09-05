@@ -36,7 +36,7 @@ userRouter.get(
 );
 
 userRouter.delete(
-  '/user',
+  '/user/:id',
   authenticateMiddleware,
   (req, res) => userControllerInstance.deleteUser(req, res),
 );

@@ -29,7 +29,7 @@ class UserController {
 
   async deleteUser(req, res) {
     const { role } = req.user;
-    const { id } = req.body;
+    const { id } = req.params;
     await this.service.deleteUser(id, role);
     return res.status(StatusCodes.OK).end();
   }
