@@ -33,8 +33,8 @@ export const requestUsersWithToken = async (endpoint, token) => {
   return data;
 };
 
-export const deleteUser = async (body, token) => {
-  const { data } = await api.delete('/user', body, {
+export const deleteUser = async (endpoint, token) => {
+  const { data } = await api.delete(endpoint, {
     headers: { Authorization: token },
   });
   return data;
