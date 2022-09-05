@@ -5,7 +5,7 @@ export default function DenseTable() {
   const [allUsers, setAllUsers] = useState([]);
   const [tableAtt, setTableAtt] = useState(true);
 
-  const { token } = JSON.parse(localStorage.getItem('userData'));
+  const { token } = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     (() => {
