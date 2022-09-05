@@ -1,6 +1,7 @@
 const { INTEGER, STRING, DECIMAL, DATE, NOW, Model } = require('sequelize');
 const db = require('.');
 const Users = require('./user');
+
 class Sales extends Model {}
 
 Sales.init({

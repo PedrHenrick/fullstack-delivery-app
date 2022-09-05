@@ -19,4 +19,25 @@ export const requestUsers = async (endpoint) => {
   return data;
 };
 
+export const requestRegisterAdmin = async (endpoint, body, token) => {
+  const { data } = await api.post(endpoint, body, {
+    headers: { Authorization: token },
+  });
+  return data;
+};
+
+export const requestUsersWithToken = async (endpoint, token) => {
+  const { data } = await api.get(endpoint, {
+    headers: { Authorization: token },
+  });
+  return data;
+};
+
+export const deleteUser = async (endpoint, token) => {
+  const { data } = await api.delete(endpoint, {
+    headers: { Authorization: token },
+  });
+  return data;
+};
+
 export default api;

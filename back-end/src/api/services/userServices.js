@@ -39,7 +39,7 @@ class UserService {
     if (adminRole) payload.role = role;
 
     const token = generateJWTToken({ ...payload });
-    return { token, id: user.id };
+    return { token, user };
   }
 
   async getAll(admin) {

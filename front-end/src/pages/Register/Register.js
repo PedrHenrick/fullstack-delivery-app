@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import { requestLogin } from '../../utils/requests';
-import { changeEmail, changeName } from '../../redux/slices/client';
+import { requestLogin, requestRegisterAdmin } from '../../utils/requests';
+import { changeEmail, changeName, changeRole } from '../../redux/slices/client';
 
 function Register() {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const [isValid, setIsValid] = useState(true);
   const NUMBER_SIX = 6;
   const USERNAME_LENGTH = 12;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isAdmin = (/admin/i).test(location.pathname);
 
   const handleChange = ({ target: { name, value } }) => {
+    setIsValid(true);
     if (name === 'userName') {
       setUserName(value);
     }
@@ -25,6 +29,9 @@ function Register() {
     }
     if (name === 'password') {
       setPassword(value);
+    }
+    if (name === 'role') {
+      setRole(value);
     }
   };
 
@@ -38,16 +45,37 @@ function Register() {
     localStorage.setItem('name', userName);
     dispatch(changeEmail(email));
     localStorage.setItem('email', email);
+    dispatch(changeRole(role));
 
     try {
-      await requestLogin(
-        '/register',
-        { email, password, name: userName },
-      );
-      navigate('/customer/products');
+      if (!isAdmin) {
+        const { token, user } = await requestLogin(
+          '/register',
+          { email, password, name: userName },
+        );
+        const localObj = {
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          token,
+        };
+        localStorage.setItem('userData', JSON.stringify(localObj));
+        navigate('/customer/products');
+      } else {
+        const { token } = JSON.parse(localStorage.getItem('userData'));
+        await requestRegisterAdmin(
+          '/registerAdmin',
+          { email, password, name: userName, role },
+          token,
+        );
+      }
     } catch (error) {
       setIsValid(false);
     }
+    setUserName('');
+    setEmail('');
+    setPassword('');
+    setRole('');
   };
 
   return (
@@ -55,7 +83,9 @@ function Register() {
       <form>
         <label htmlFor="userName">
           <input
-            data-testid="common_register__input-name"
+            data-testid={
+              isAdmin ? 'admin_manage__input-name' : 'common_register__input-name'
+            }
             type="text"
             name="userName"
             placeholder="Digite seu nome"
@@ -65,7 +95,9 @@ function Register() {
         </label>
         <label htmlFor="email">
           <input
-            data-testid="common_register__input-email"
+            data-testid={
+              isAdmin ? 'admin_manage__input-email' : 'common_register__input-email'
+            }
             type="email"
             name="email"
             placeholder="Digite seu email"
@@ -75,7 +107,9 @@ function Register() {
         </label>
         <label htmlFor="password">
           <input
-            data-testid="common_register__input-password"
+            data-testid={
+              isAdmin ? 'admin_manage__input-password' : 'common_register__input-password'
+            }
             type="password"
             name="password"
             placeholder="Digite sua senha"
@@ -83,10 +117,26 @@ function Register() {
             onChange={ handleChange }
           />
         </label>
+        {isAdmin
+        && (
+          <label htmlFor="role">
+            <select
+              onChange={ handleChange }
+              name="role"
+              data-testid="admin_manage__select-role"
+            >
+              <option value="seller">Vendedor</option>
+              <option selected value="customer">Cliente</option>
+              <option value="administrator">Administrador</option>
+            </select>
+          </label>
+        ) }
         <button
-          data-testid="common_register__button-register"
+          data-testid={
+            isAdmin ? 'admin_manage__button-register' : 'common_register__button-register'
+          }
           type="button"
-          disabled={ isButtonDisabled() }
+          disabled={ !isAdmin ? isButtonDisabled() : isButtonDisabled() || !role }
           onClick={ handleClick }
         >
           Cadastrar
@@ -94,7 +144,12 @@ function Register() {
         {
           !isValid
           && (
-            <p data-testid="common_register__element-invalid_register">
+            <p
+              data-testid={
+                isAdmin ? 'admin_manage__element-invalid-register'
+                  : 'common_register__element-invalid_register'
+              }
+            >
               Usuário já existe
             </p>
           )

@@ -40,10 +40,12 @@ function Login() {
         role: user.role,
         token,
       };
+
       dispatch(changeName(user.name));
       localStorage.setItem('user', JSON.stringify(localObj));
 
-      navigate('/customer/products');
+      if (user.role === 'administrator') navigate('/admin/manage');
+      else navigate('/customer/products');
     } catch (error) {
       setIsValid(false);
     }
