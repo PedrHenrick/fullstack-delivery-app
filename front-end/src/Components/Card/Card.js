@@ -31,12 +31,12 @@ function Card({ id, image, name, price, handleClick }) {
   });
 
   const handleChange = ({ target }) => {
-    if (target.value <= 0) {
+    if (+target.value <= 0) {
       setQuant(0);
       return handleClick(target.id, 0);
     }
-    setQuant(target.value);
-    return handleClick(target.id, target.value);
+    setQuant(+target.value);
+    return handleClick(target.id, +target.value);
   };
 
   return (

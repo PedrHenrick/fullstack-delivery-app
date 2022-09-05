@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Card from '../Card/Card';
 import { requestProducts } from '../../utils/requests';
@@ -10,7 +10,7 @@ function AllCards() {
   const [valueCart, setValueCart] = useState(0);
   const [addOrRemoveCart, setaddOrRemoveCart] = useState(true);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -19,17 +19,17 @@ function AllCards() {
       const cart = JSON.parse(localStorage.getItem('cart'));
       if (cart) {
         let count = 0;
-        cart.forEach((item) => {
+        cart.map((item) => {
           count += parseFloat(item.subTotal);
+          return count;
         });
+        console.log(count);
         setValueCart(count);
       }
 
       setProducts(await result);
     })();
   }, [addOrRemoveCart]);
-
-  // const isButtonDisabled = () => !JSON.parse(localStorage.getItem('cart')).length > 0;
 
   const handleClick = (prodId, prodQnt) => {
     const cart = JSON.parse(localStorage.getItem('cart'));
@@ -39,35 +39,35 @@ function AllCards() {
       localStorage.setItem('cart', JSON.stringify(
         [{ ...item,
           quantity: prodQnt,
-          subTotal: (prodQnt * +item.price).toFixed(2).replace('.', ',') }],
+          subTotal: (prodQnt * +item.price).toFixed(2) }],
       ));
       setaddOrRemoveCart(!addOrRemoveCart);
-      return 'oi';
+      return '';
     }
     if (!item) {
       localStorage.setItem('cart', JSON.stringify(
         [{ ...cart,
           ...item,
           quantity: prodQnt,
-          subTotal: (prodQnt * item.price).toFixed(2).replace('.', ',') }],
+          subTotal: (prodQnt * +item.price).toFixed(2) }],
       ));
       setaddOrRemoveCart(!addOrRemoveCart);
-      return 'oie';
+      return '';
     }
     const filter = cart.filter((product) => product.id !== +prodId);
     if (prodQnt <= 0) {
       localStorage.setItem('cart', JSON.stringify(filter));
       setaddOrRemoveCart(!addOrRemoveCart);
-      return 'oiee';
+      return '';
     }
     localStorage.setItem('cart', JSON.stringify([
       ...filter,
       { ...item,
         quantity: prodQnt,
-        subTotal: (prodQnt * +item.price).toFixed(2).replace('.', ',') },
+        subTotal: (prodQnt * +item.price).toFixed(2) },
     ]));
     setaddOrRemoveCart(!addOrRemoveCart);
-    return 'ola';
+    return '';
   };
 
   return (
@@ -75,10 +75,13 @@ function AllCards() {
       <button
         data-testid="customer_products__button-cart"
         type="button"
-        // disabled={ isButtonDisabled() }
-        // onClick={ () => navigate('/customer/checkout') }
+        disabled={ valueCart === 0 }
+        onClick={ () => navigate('/customer/checkout') }
       >
-        {`Total R$: ${valueCart}`}
+        Ver Carrinho:
+        <span data-testid="customer_products__checkout-bottom-value">
+          {` R$: ${valueCart.toFixed(2).replace('.', ',')}`}
+        </span>
       </button>
       <div>
         { products.length
