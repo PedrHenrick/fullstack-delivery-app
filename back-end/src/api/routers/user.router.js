@@ -30,6 +30,12 @@ userRouter.post(
 );
 
 userRouter.get(
+  '/sellers',
+  authenticateMiddleware,
+  (request, response) => userControllerInstance.getSellersAll(request, response),
+);
+
+userRouter.get(
   '/users',
   authenticateMiddleware,
   (req, res) => userControllerInstance.getAll(req, res),
