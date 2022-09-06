@@ -24,3 +24,5 @@ const clientSlice = createSlice({
 export const {
   changeEmail, changeName, changeRole,
 } = clientSlice.actions;
+
+export default clientSlice.reducer;

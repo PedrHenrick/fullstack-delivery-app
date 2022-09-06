@@ -43,7 +43,7 @@ class UserService {
   }
 
   async getSellersAll() {
-    const allSellers = this.model.findAll({ where: { role: "seller" } });
+    const allSellers = this.model.findAll({ where: { role: 'seller' } });
     return allSellers;
   }
 
