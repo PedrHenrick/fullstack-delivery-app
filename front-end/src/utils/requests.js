@@ -19,14 +19,14 @@ export const requestUsers = async (endpoint) => {
   return data;
 };
 
-export const requestRegisterAdmin = async (endpoint, body, token) => {
+export const requestPostToken = async (endpoint, body, token) => {
   const { data } = await api.post(endpoint, body, {
     headers: { Authorization: token },
   });
   return data;
 };
 
-export const requestUsersWithToken = async (endpoint, token) => {
+export const requestGetWithToken = async (endpoint, token) => {
   const { data } = await api.get(endpoint, {
     headers: { Authorization: token },
   });

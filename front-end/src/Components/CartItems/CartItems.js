@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { requestUsersWithToken } from '../../utils/requests';
+import { requestGetWithToken } from '../../utils/requests';
 // import { useNavigate } from 'react-router-dom';
 
 function CartItems() {
@@ -18,7 +18,7 @@ function CartItems() {
   useEffect(() => {
     (async () => {
       const { token } = JSON.parse(localStorage.getItem('user'));
-      const getSellers = await requestUsersWithToken('/sellers', token);
+      const getSellers = await requestGetWithToken('/sellers', token);
       setSellers(getSellers);
     })();
   }, []);

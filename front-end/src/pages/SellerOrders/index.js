@@ -1,9 +1,10 @@
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { DivCard, OrderCard } from '../../styled-components/SellerOrders';
 import { showProduct } from '../../redux/slices/client';
+import Header from '../../Components/Header/Header';
+import { requestGetWithToken } from '../../utils/requests';
 
 function SellerOrders() {
   const { token } = JSON.parse(localStorage.getItem('user'));
@@ -21,13 +22,8 @@ function SellerOrders() {
 
   useEffect(() => {
     const getOrders = async () => {
-      const arrOrders = await axios.get('http://localhost:3001/seller/orders', {
-        headers: {
-          Authorization: token,
-        },
-      });
-
-      setOrders(arrOrders.data);
+      const data = await requestGetWithToken('/seller/orders', token);
+      setOrders(data);
     };
 
     getOrders();
@@ -48,12 +44,12 @@ function SellerOrders() {
 
     dispatch(showProduct(product));
 
-    navigate('/products-details');
+    navigate(`/seller/orders/${id}`);
   };
 
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <div>
         {
           orders.length > 0 && orders.map((element) => (
