@@ -42,6 +42,11 @@ class UserService {
     return { token, user };
   }
 
+  async getSellersAll() {
+    const allSellers = this.model.findAll({ where: { role: 'seller' } });
+    return allSellers;
+  }
+
   async getAll(admin) {
     if (admin !== 'administrator') throw new Error('Unauthorized');
 

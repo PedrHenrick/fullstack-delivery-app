@@ -21,9 +21,14 @@ class UserController {
     return response.status(StatusCodes.CREATED).json(token);
   }
 
+  async getSellersAll(_request, response) {
+    const allSellers = await this.service.getSellersAll();
+    return response.status(StatusCodes.OK).json(allSellers);
+  }
+
   async getAll(req, res) {
     const { role } = req.user;
-    const allUsers = await this.service.getAll(role);
+    const allUsers = await this.servicce.getAll(role);
     return res.status(StatusCodes.OK).json(allUsers);
   }
 

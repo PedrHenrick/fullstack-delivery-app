@@ -8,7 +8,7 @@ const initialState = {
   role: '',
 };
 
-export const clientSlice = createSlice({
+const clientSlice = createSlice({
   name: 'client',
   initialState,
   reducers: {
@@ -29,3 +29,5 @@ export const clientSlice = createSlice({
 
 export const { changeEmail, changePassword, changeName, showProduct, changeRole,
 } = clientSlice.actions;
+
+export default clientSlice.reducer;

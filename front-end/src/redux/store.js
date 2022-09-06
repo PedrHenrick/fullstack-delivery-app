@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { clientSlice } from './slices/client';
+import cart from './slices/cart';
+import client from './slices/client';
 
 const configStore = configureStore({
   reducer: {
-    someReducer: clientSlice.reducer,
+    client,
+    cart,
   },
 });
 export default configStore;

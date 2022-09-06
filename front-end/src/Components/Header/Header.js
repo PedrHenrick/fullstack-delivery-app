@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Header() {
-  const client = localStorage.getItem('name');
+  const user = JSON.parse(localStorage.getItem('user'));
+
   return (
     <header>
       <nav>
@@ -21,7 +22,7 @@ function Header() {
         <div
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          { client }
+          { user.name }
         </div>
         <Link
           data-testid="customer_products__element-navbar-link-logout"

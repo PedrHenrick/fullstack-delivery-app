@@ -1,6 +1,5 @@
 const { INTEGER, STRING, DECIMAL, DATE, NOW, Model } = require('sequelize');
 const db = require('.');
-
 const Users = require('./user');
 
 class Sales extends Model {}
@@ -43,6 +42,7 @@ Sales.init({
     },
     status: {
       type: STRING(50),
+      defaultValue: 'Pendente',
       allowNull: false,
     },
   }, {

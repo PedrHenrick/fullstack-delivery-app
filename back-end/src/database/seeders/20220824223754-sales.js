@@ -12,7 +12,7 @@ module.exports = {
         delivery_address: 'XP Street',
         delivery_number: '123456789',
         sale_date: '2022-08-23',
-        status: 'pending',
+        status: 'Pendente',
       },
       ], { timestamps: false });
   },

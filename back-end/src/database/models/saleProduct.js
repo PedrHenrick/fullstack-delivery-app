@@ -16,17 +16,17 @@ SalesProduct.init({
       timestamps: false,
     });
 
-  Products.belongsToMany(Sales, {
-    as: "salesIds",
-    through: SalesProduct,
-    foreignKey: "product_id",
-    otherKey: 'sale_id'
-  });
-  Sales.belongsToMany(Products, {
-    as: "productsIds",
-    through: SalesProduct,
-    foreignKey: "sale_id",
-    otherKey: 'product_id'
-  });
+Products.belongsToMany(Sales, {
+  as: "salesIds",
+  through: SalesProduct,
+  foreignKey: "productId",
+  otherKey: 'saleId'
+});
+Sales.belongsToMany(Products, {
+  as: "productsIds",
+  through: SalesProduct,
+  foreignKey: "saleId",
+  otherKey: 'productId'
+});
 
 module.exports = SalesProduct;

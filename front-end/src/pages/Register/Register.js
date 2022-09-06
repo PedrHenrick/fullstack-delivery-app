@@ -59,10 +59,10 @@ function Register() {
           role: user.role,
           token,
         };
-        localStorage.setItem('userData', JSON.stringify(localObj));
+        localStorage.setItem('user', JSON.stringify(localObj));
         navigate('/customer/products');
       } else {
-        const { token } = JSON.parse(localStorage.getItem('userData'));
+        const { token } = JSON.parse(localStorage.getItem('user'));
         await requestRegisterAdmin(
           '/registerAdmin',
           { email, password, name: userName, role },
