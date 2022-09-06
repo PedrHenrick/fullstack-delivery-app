@@ -6,6 +6,16 @@ const db = require('.');
 class SalesProduct extends Model {}
 
 SalesProduct.init({
+      productId: {
+        type: INTEGER,
+        allowNull: false,
+        field: 'product_id'
+      },
+      saleId: {
+        type: INTEGER,
+        allowNull: false,
+        field: 'sale_id'
+      },
       quantity: {
         type: INTEGER,
         allowNull: false,

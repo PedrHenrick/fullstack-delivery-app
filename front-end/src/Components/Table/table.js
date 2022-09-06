@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { deleteUser, requestUsersWithToken } from '../../utils/requests';
+import { deleteUser, requestGetWithToken } from '../../utils/requests';
 
 export default function DenseTable() {
   const [allUsers, setAllUsers] = useState([]);
@@ -9,7 +9,7 @@ export default function DenseTable() {
 
   useEffect(() => {
     (() => {
-      requestUsersWithToken('/users', token).then((e) => setAllUsers(e));
+      requestGetWithToken('/users', token).then((e) => setAllUsers(e));
     })();
   }, [token, tableAtt]);
 
