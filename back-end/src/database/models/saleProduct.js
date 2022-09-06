@@ -19,14 +19,14 @@ SalesProduct.init({
 Products.belongsToMany(Sales, {
   as: "salesIds",
   through: SalesProduct,
-  foreignKey: "productId",
-  otherKey: 'saleId'
+  foreignKey: "product_id",
+  otherKey: 'sale_id'
 });
 Sales.belongsToMany(Products, {
   as: "productsIds",
   through: SalesProduct,
-  foreignKey: "saleId",
-  otherKey: 'productId'
+  foreignKey: "sale_id",
+  otherKey: 'product_id'
 });
 
 module.exports = SalesProduct;
