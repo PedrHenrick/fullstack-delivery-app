@@ -29,7 +29,7 @@ class CustomerService {
       try {
         const result = await sequelize.transaction(async (t) => {
           const saleCreated = await this.salesModel.create(saleObject(sale), { transaction: t });
-
+          
           await Promise.all(sale.productsIds.map(async (product) => {
             const productExist = await this.productsModel
               .findOne({ where: { id: product.id } }, { transaction: t });
@@ -43,6 +43,7 @@ class CustomerService {
         });
         return result;
       } catch (error) {
+        console.log(error);
         throw new Error(error);
       }
     }
@@ -57,7 +58,7 @@ class CustomerService {
 
     async getOneSale() {
       const oneSale = await this.salesModel.findAll({ 
-        attributes: { exclude: 'deliveryAddress, sellerId' } });
+        attributes: { exclude: ['deliveryAddress', 'sellerId'] } });
       return oneSale;
     }
 

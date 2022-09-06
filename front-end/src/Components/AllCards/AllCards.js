@@ -23,7 +23,6 @@ function AllCards() {
           count += parseFloat(item.subTotal);
           return count;
         });
-        console.log(count);
         setValueCart(count);
       }
 

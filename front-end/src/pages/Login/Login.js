@@ -35,6 +35,7 @@ function Login() {
     try {
       const { token, user } = await requestLogin('/login', { email, password });
       const localObj = {
+        id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
