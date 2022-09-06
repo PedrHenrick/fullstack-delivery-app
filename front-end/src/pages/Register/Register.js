@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { requestLogin, requestRegisterAdmin } from '../../utils/requests';
+import { requestLogin, requestPostToken } from '../../utils/requests';
 import { changeEmail, changeName, changeRole } from '../../redux/slices/client';
 
 function Register() {
@@ -54,6 +54,7 @@ function Register() {
           { email, password, name: userName },
         );
         const localObj = {
+          id: user.id,
           name: user.name,
           email: user.email,
           role: user.role,
@@ -63,7 +64,7 @@ function Register() {
         navigate('/customer/products');
       } else {
         const { token } = JSON.parse(localStorage.getItem('user'));
-        await requestRegisterAdmin(
+        await requestPostToken(
           '/registerAdmin',
           { email, password, name: userName, role },
           token,
