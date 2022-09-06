@@ -53,6 +53,7 @@ function Login() {
       localStorage.setItem('user', JSON.stringify(localObj));
 
       if (user.role === 'administrator') navigate('/admin/manage');
+      else if (user.role === 'seller') navigate('/seller/orders');
       else navigate('/customer/products');
     } catch (error) {
       setIsValid(false);

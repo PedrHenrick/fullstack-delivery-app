@@ -8,7 +8,7 @@ import CustomerOrderDetails from './pages/CustomerOrderDetails/CustomerOrderDeta
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import SellerOrders from './pages/SellerOrders';
-import ProductsDetails from './pages/ProductsDetails';
+import SellerOrdersDetails from './pages/SellerOrdersDetails';
 import AdminRegister from './pages/Admin/AdminRegister';
 
 function App() {
@@ -17,8 +17,8 @@ function App() {
       <Route path="/" element={ <Navigate to="/login" replace /> } />
       <Route path="/login" element={ <Login /> } />
       <Route path="/register" element={ <Register /> } />
-      <Route path="/seller-orders" element={ <SellerOrders /> } />
-      <Route path="/products-details" element={ <ProductsDetails /> } />
+      <Route path="/seller/orders" element={ <SellerOrders /> } />
+      <Route path="/seller/orders/:id" element={ <SellerOrdersDetails /> } />
       <Route path="/customer/products" element={ <CustomerProducts /> } />
       <Route path="/customer/orders" element={ <CustomerOrders /> } />
       <Route path="customer/orders/:id" element={ <CustomerOrderDetails /> } />
