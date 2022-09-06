@@ -57,7 +57,7 @@ function SellerOrders() {
               key={ element.id }
               onClick={ () => goToDetails(element.id) }
             >
-              <p datatestid={ `seller_orders__element-order-id-${element.id}` }>
+              <p datatestid={ `seller_orders__element-order-id-${element.sellerId}` }>
                 { `Pedido: ${element.sellerId}` }
               </p>
 
