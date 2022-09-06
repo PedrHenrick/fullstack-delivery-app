@@ -1,18 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Header() {
+  const location = useLocation();
+  const isSeller = (/seller/i).test(location.pathname);
   const user = JSON.parse(localStorage.getItem('user'));
 
   return (
     <header>
       <nav>
-        <Link
-          data-testid="customer_products__element-navbar-link-products"
-          to="/customer/products"
-        >
-          Produtos
-        </Link>
+        {!isSeller && (
+          <Link
+            data-testid="customer_products__element-navbar-link-products"
+            to="/customer/products"
+          >
+            Produtos
+          </Link>)}
         <Link
           data-testid="customer_products__element-navbar-link-orders"
           to="/customer/orders"
