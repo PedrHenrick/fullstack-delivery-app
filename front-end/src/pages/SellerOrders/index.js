@@ -6,11 +6,9 @@ import { DivCard, OrderCard } from '../../styled-components/SellerOrders';
 import { showProduct } from '../../redux/slices/client';
 
 function SellerOrders() {
-  // const token = localStorage.getItem('token');
+  const { token } = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkZ1bGFuYSBQZXJlaXJhIiwiZW1haWwiOiJmdWxhbmFAZGVsaXZlcnlhcHAuY29tIiwicm9sZSI6InNlbGxlciIsImlhdCI6MTY2MjQwMzQ2NH0.WttPMgbR98G5LfsEpnAkUvaI_sQQB5Pw8Nbd9J95lhI';
 
   const NUMBER_8 = 8;
   const NUMBER_4 = 4;
