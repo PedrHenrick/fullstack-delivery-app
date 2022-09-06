@@ -1,19 +1,33 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header/Header';
+import { requestGetWithToken } from '../../utils/requests';
 
 function CustomerOrders() {
   const [orders, setOrders] = useState([]);
+  const NUMBER_8 = 8;
+  const NUMBER_4 = 4;
+  const NUMBER_2 = 2;
+  const NUMBER_0 = 0;
+  const NUMBER_5 = 5;
+
   const navigate = useNavigate();
+
   useEffect(() => {
     const productsOrders = async () => {
-      const arrProducts = await axios.get('http://localhost:3001/customer/orders', {
-      });
-      setOrders(arrProducts.data);
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      const arrProducts = await requestGetWithToken('/customer/orders', token);
+      setOrders(arrProducts);
     };
     productsOrders();
   }, []);
+
+  function formatDate(date) {
+    const strData = `${date.substr(NUMBER_8, NUMBER_2)}`
+      + `/${date.substr(NUMBER_5, NUMBER_2)}`
+      + `/${date.substr(NUMBER_0, NUMBER_4)}`;
+    return strData;
+  }
 
   const goToDetails = (id) => {
     const getProduct = orders.filter((element) => element.id === id);
@@ -25,33 +39,32 @@ function CustomerOrders() {
       <Header />
       {
         orders.length > 0 && orders.map((product) => (
-          <div
+          <button
+            type="button"
             key={ product.id }
+            onClick={ () => goToDetails(product.id) }
           >
             <p
-              datatestid={ `customer_orders__element-order-id-${product.id}` }
+              data-testid={ `customer_orders__element-order-id-${product.id}` }
             >
-              { `Pedido: ${product.deliveryNumber}` }
+              { product.id }
             </p>
             <p
-              datatestid={ `customer_orders__element-delivery-status-${product.id}` }
+              data-testid={ `customer_orders__element-delivery-status-${product.id}` }
             >
-              { `Status: ${product.status}` }
+              { product.status }
             </p>
             <p
-              datatestid={ `customer_orders__element-order-date-${product.id}` }
+              data-testid={ `customer_orders__element-order-date-${product.id}` }
             >
-              { `Data: ${product.saleDate}` }
+              { formatDate(product.saleDate) }
             </p>
             <p
-              datatestid={ `customer_orders__element-card-price-${product.id}` }
+              data-testid={ `customer_orders__element-card-price-${product.id}` }
             >
-              { `Valor: ${product.totalPrice}` }
+              { product.totalPrice.replace('.', ',') }
             </p>
-            <button type="button" onClick={ () => goToDetails(product.id) }>
-              kalsdjald
-            </button>
-          </div>
+          </button>
         ))
       }
     </div>
