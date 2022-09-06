@@ -35,10 +35,8 @@ class CustomerService {
               .findOne({ where: { id: product.id } }, { transaction: t });
 
               await this.salesProdutsModel.create({
-              sale_id: saleCreated.id, product_id: productExist.id, quantity: product.quantity,
+              saleId: saleCreated.id, productId: productExist.id, quantity: product.quantity,
             }, { transaction: t });
-
-            console.log('lalaland')
           }));
 
           return { message: 'Venda adicionada com sucesso', id: saleCreated.id };

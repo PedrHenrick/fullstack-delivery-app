@@ -6,6 +6,16 @@ const db = require('.');
 class SalesProduct extends Model {}
 
 SalesProduct.init({
+      productId: {
+        type: INTEGER,
+        allowNull: false,
+        field: 'product_id'
+      },
+      saleId: {
+        type: INTEGER,
+        allowNull: false,
+        field: 'sale_id'
+      },
       quantity: {
         type: INTEGER,
         allowNull: false,
@@ -19,14 +29,14 @@ SalesProduct.init({
 Products.belongsToMany(Sales, {
   as: "salesIds",
   through: SalesProduct,
-  foreignKey: "product_id",
-  otherKey: 'sale_id'
+  foreignKey: "productId",
+  otherKey: 'saleId'
 });
 Sales.belongsToMany(Products, {
   as: "productsIds",
   through: SalesProduct,
-  foreignKey: "sale_id",
-  otherKey: 'product_id'
+  foreignKey: "saleId",
+  otherKey: 'productId'
 });
 
 module.exports = SalesProduct;
