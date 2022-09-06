@@ -62,7 +62,7 @@ function SellerOrders() {
               </p>
 
               <DivCard>
-                <h3 datatestid={ `seller_orders__element-order-id-${element.id}` }>
+                <h3 datatestid={ `seller_orders__element-delivery-status-${element.id}` }>
                   {element.status}
                 </h3>
 
