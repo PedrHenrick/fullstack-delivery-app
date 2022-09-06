@@ -17,7 +17,7 @@ const errorCatalog = {
     error: 'Incorrect password',
     httpStatus: StatusCodes.BAD_REQUEST,
   },
-  unauthorized: {
+  Unauthorized: {
     error: 'Unauthorized',
     httpStatus: StatusCodes.UNAUTHORIZED,
   },

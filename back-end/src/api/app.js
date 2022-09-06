@@ -14,6 +14,7 @@ class App {
     this.app.get('/coffee', (_req, res) => res.status(418).end());
     this.app.use(cors());
     this.app.use(router);
+    this.app.use('/images', express.static('public'));
     this.app.use(ErrorMiddleware);
   }
 
@@ -24,7 +25,7 @@ class App {
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
-
+    this.app.use(express.static('public'));
     this.app.use(express.json());
     this.app.use(accessControl);
   }
