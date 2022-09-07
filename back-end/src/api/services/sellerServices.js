@@ -27,7 +27,8 @@ class SellerService {
       return { ...oneProduct, quantity };
     }));
     
-    return { ...orderDetails.dataValues, products };  }
+    return { ...orderDetails.dataValues, products };
+  }
 }
 
 module.exports = SellerService;
