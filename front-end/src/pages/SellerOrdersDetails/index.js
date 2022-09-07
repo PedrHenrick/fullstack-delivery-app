@@ -1,9 +1,16 @@
 import React from 'react';
+import Header from '../../Components/Header/Header';
+import DetailsOrder from '../../Components/DetailsOrder';
+import HeaderTable from '../../Components/HeaderTable';
 
-function ProductsDetails() {
+function SellerOrderDetails() {
   return (
-    <p>ProductsDetails</p>
+    <>
+      <Header />
+      <HeaderTable />
+      <DetailsOrder />
+    </>
   );
 }
 
-export default ProductsDetails;
+export default SellerOrderDetails;
