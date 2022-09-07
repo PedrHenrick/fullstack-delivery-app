@@ -30,10 +30,9 @@ function SellerOrders() {
   }, [token]);
 
   function formatDate(date) {
-    const strData = `
-    ${date.substr(NUMBER_8, NUMBER_2)}/
-    ${date.substr(NUMBER_5, NUMBER_2)}/
-    ${date.substr(NUMBER_0, NUMBER_4)}`;
+    const strData = `${date.substr(NUMBER_8, NUMBER_2)}/${
+      date.substr(NUMBER_5, NUMBER_2)}/${
+      date.substr(NUMBER_0, NUMBER_4)}`;
     return strData;
   }
 
