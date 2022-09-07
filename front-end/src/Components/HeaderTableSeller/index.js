@@ -49,23 +49,26 @@ function HeaderTable() {
 
             </th>
             <th
-              data-testid={ `seller_order_details__
-              element-order-details-label-delivery-status` }
+              data-testid={
+                'seller_order_details__element-order-details-label-delivery-status' || ''
+              }
             >
               {status}
             </th>
-            <th
+            <button
+              type="button"
               data-testid="seller_order_details__button-preparing-check"
             >
               Preparar pedido
 
-            </th>
-            <th
+            </button>
+            <button
+              type="button"
               data-testid="seller_order_details__button-dispatch-check"
             >
               Saiu pra entrega
 
-            </th>
+            </button>
           </tr>
         </thead>
       </table>
