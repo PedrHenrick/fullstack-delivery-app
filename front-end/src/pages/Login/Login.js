@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,13 @@ function Login() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    (() => {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) navigate('/customer/products');
+    })();
+  }, [navigate]);
 
   const handleChange = ({ target: { name, value } }) => {
     if (name === 'email') {
