@@ -16,6 +16,7 @@ function HeaderTable() {
   }, [idSale]);
 
   const { saleDate, status } = productsOrder;
+
   const NUMBER_8 = 8;
   const NUMBER_4 = 4;
   const NUMBER_2 = 2;
@@ -44,7 +45,7 @@ function HeaderTable() {
             <th
               datatest-id="seller_order_details__element-order-details-label-order-date"
             >
-              { formatDate(saleDate) }
+              { saleDate && formatDate(saleDate) }
 
             </th>
             <th

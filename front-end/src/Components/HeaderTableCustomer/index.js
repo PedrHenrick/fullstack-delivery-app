@@ -45,7 +45,7 @@ function CustomerHeaderTable() {
             <th
               datatest-id="customer_order_details__element-order-details-label-order-date"
             >
-              { formatDate(saleDate) }
+              { saleDate && formatDate(saleDate) }
 
             </th>
             <th
