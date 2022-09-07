@@ -36,20 +36,20 @@ function CustomerHeaderTable() {
         <thead>
           <tr>
             <th
-              datatest-id="customer_order_details__element-order-details-label-order-id"
+              data-testid="customer_order_details__element-order-details-label-order-id"
             >
               {`Pedido: ${idSale}`}
 
             </th>
             <th>Pessoa vendedora</th>
             <th
-              datatest-id="customer_order_details__element-order-details-label-order-date"
+              data-testid="customer_order_details__element-order-details-label-order-date"
             >
               { saleDate && formatDate(saleDate) }
 
             </th>
             <th
-              datatest-id={ `customer_order_details__
+              data-testid={ `customer_order_details__
               element-order-details-label-delivery-status` }
             >
               {status}

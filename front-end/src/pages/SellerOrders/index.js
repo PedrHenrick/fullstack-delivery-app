@@ -61,20 +61,24 @@ function SellerOrders() {
               </span>
 
               <DivCard>
-                <h3 datatestid={ `seller_orders__element-delivery-status-${element.id}` }>
+                <h3
+                  data-testid={
+                    `seller_orders__element-delivery-status-${element.id}`
+                  }
+                >
                   {element.status}
                 </h3>
 
-                <h3 datatestid={ `seller_orders__element-order-date-${element.id}` }>
+                <h3 data-testid={ `seller_orders__element-order-date-${element.id}` }>
                   { formatDate(element.saleDate) }
                 </h3>
 
-                <h3 datatestid={ `seller_orders__element-card-price-${element.id}` }>
+                <h3 data-testid={ `seller_orders__element-card-price-${element.id}` }>
                   { `R$: ${element.totalPrice}` }
                 </h3>
               </DivCard>
 
-              <p datatestid={ `seller_orders__element-card-address-${element.id}` }>
+              <p data-testid={ `seller_orders__element-card-address-${element.id}` }>
                 { `${element.deliveryAddress}, ${element.deliverynNumber}` }
               </p>
             </OrderCard>

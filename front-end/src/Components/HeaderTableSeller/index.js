@@ -37,31 +37,31 @@ function HeaderTable() {
         <thead>
           <tr>
             <th
-              datatest-id="seller_order_details__element-order-details-label-order-id"
+              data-testid="seller_order_details__element-order-details-label-order-id"
             >
               {`Pedido: ${idSale}`}
 
             </th>
             <th
-              datatest-id="seller_order_details__element-order-details-label-order-date"
+              data-testid="seller_order_details__element-order-details-label-order-date"
             >
               { saleDate && formatDate(saleDate) }
 
             </th>
             <th
-              datatest-id={ `seller_order_details__
+              data-testid={ `seller_order_details__
               element-order-details-label-delivery-status` }
             >
               {status}
             </th>
             <th
-              datatest-id="seller_order_details__button-preparing-check"
+              data-testid="seller_order_details__button-preparing-check"
             >
               Preparar pedido
 
             </th>
             <th
-              datatest-id="seller_order_details__button-dispatch-check"
+              data-testid="seller_order_details__button-dispatch-check"
             >
               Saiu pra entrega
 
