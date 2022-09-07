@@ -6,7 +6,6 @@ function HeaderTable() {
   const [productsOrder, setProductsOrder] = useState({});
   const location = useLocation();
   const [idSale] = location.pathname.match(/[0-9]$/);
-  const isSeller = (/seller/i).test(location.pathname);
 
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('user'));
@@ -36,16 +35,36 @@ function HeaderTable() {
       <table>
         <thead>
           <tr>
-            <th>{`Pedido: ${idSale}`}</th>
-            { !isSeller && <th>Pessoa vendedora</th>}
-            <th>{ formatDate(saleDate) }</th>
-            <th>{status}</th>
-            {isSeller ? (
-              <>
-                <th>Prepara pedido</th>
-                <th>Saiu pra entrega</th>
-              </>
-            ) : <th>Marcar como entregue</th>}
+            <th
+              datatest-id="seller_order_details__element-order-details-label-order-id"
+            >
+              {`Pedido: ${idSale}`}
+
+            </th>
+            <th
+              datatest-id="seller_order_details__element-order-details-label-order-date"
+            >
+              { formatDate(saleDate) }
+
+            </th>
+            <th
+              datatest-id={ `seller_order_details__
+              element-order-details-label-delivery-status` }
+            >
+              {status}
+            </th>
+            <th
+              datatest-id="seller_order_details__button-preparing-check"
+            >
+              Preparar pedido
+
+            </th>
+            <th
+              datatest-id="seller_order_details__button-dispatch-check"
+            >
+              Saiu pra entrega
+
+            </th>
           </tr>
         </thead>
       </table>

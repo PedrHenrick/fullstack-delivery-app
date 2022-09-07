@@ -2,7 +2,7 @@ import React from 'react';
 import DetailsOrder from '../../Components/DetailsOrder';
 
 import Header from '../../Components/Header/Header';
-import HeaderTable from '../../Components/HeaderTable';
+import HeaderTable from '../../Components/HeaderTableCustomer';
 
 function CustomerOrderDetails() {
   return (
