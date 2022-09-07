@@ -40,8 +40,12 @@ function HeaderTable() {
             { !isSeller && <th>Pessoa vendedora</th>}
             <th>{ formatDate(saleDate) }</th>
             <th>{status}</th>
-            <th>Prepara pedido</th>
-            <th>Saiu pra entrega</th>
+            {isSeller ? (
+              <>
+                <th>Prepara pedido</th>
+                <th>Saiu pra entrega</th>
+              </>
+            ) : <th>Marcar como entregue</th>}
           </tr>
         </thead>
       </table>
