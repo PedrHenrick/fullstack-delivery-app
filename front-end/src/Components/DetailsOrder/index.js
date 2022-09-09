@@ -56,7 +56,7 @@ function DetailsOrder() {
                 data-testid={
                   isRouteSeller
                     ? `seller_order_details__element-order-table-name-<${id}`
-                    : `customer_checkout__element-order-table-name-<${id}`
+                    : `customer_order_details__element-order-table-name-<${id}`
                 }
               >
                 { name }
@@ -65,7 +65,7 @@ function DetailsOrder() {
                 data-testid={
                   isRouteSeller
                     ? `seller_order_details__element-order-table-quantity-${id}`
-                    : `customer_checkout__element-order-table-quantity-${id}`
+                    : `customer_order_details__element-order-table-quantity-${id}`
                 }
               >
                 { quantity }
@@ -74,7 +74,7 @@ function DetailsOrder() {
                 data-testid={
                   isRouteSeller
                     ? `seller_order_details__element-order-table-unit-price-${id}`
-                    : `customer_checkout__element-order-table-unit-price-${id}`
+                    : `customer_order_details__element-order-table-unit-price-${id}`
                 }
               >
                 { `R$ ${price.replace('.', ',')}` }
@@ -83,7 +83,7 @@ function DetailsOrder() {
                 data-testid={
                   isRouteSeller
                     ? `seller_order_details__element-order-table-sub-total-${id}`
-                    : `customer_checkout__element-order-table-sub-total-${id}`
+                    : `customer_order_details__element-order-table-sub-total-${id}`
                 }
               >
                 { `R$ ${(String(quantity * price)).replace('.', ',')}` }
@@ -94,12 +94,11 @@ function DetailsOrder() {
       </table>
       <p
         data-testid={ isRouteSeller ? 'seller_order_details__element-order-total-price'
-          : 'customer_checkout__element-order-total-price' }
+          : 'customer_order_details__element-order-total-price' }
       >
         { `Total Pedido: R$ ${String(totalPrice).replace('.', ',')}`}
       </p>
     </div>
   );
 }
-
 export default DetailsOrder;
