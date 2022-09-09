@@ -26,6 +26,13 @@ export const requestPostToken = async (endpoint, body, token) => {
   return data;
 };
 
+export const requestUpdateToken = async (endpoint, body, token) => {
+  const { data } = await api.put(endpoint, body, {
+    headers: { Authorization: token },
+  });
+  return data;
+};
+
 export const requestGetWithToken = async (endpoint, token) => {
   const { data } = await api.get(endpoint, {
     headers: { Authorization: token },
