@@ -15,24 +15,24 @@ export default function DenseTable() {
 
   return (
     <table>
-      {allUsers.map(({ name, role, email, id }) => (
+      {allUsers.map(({ name, role, email, id }, index) => (
         <tr key={ name }>
-          <td datatest-id={ `admin_manage__element-user-table-item-number-${id}` }>
-            {id}
+          <td data-testid={ `admin_manage__element-user-table-item-number-${index + 1}` }>
+            {index + 1}
           </td>
-          <td datatest-id={ `admin_manage__element-user-table-name-${id}` }>
+          <td data-testid={ `admin_manage__element-user-table-name-${index + 1}` }>
             {name}
           </td>
-          <td datatest-id={ `admin_manage__element-user-table-email-${id}` }>
+          <td data-testid={ `admin_manage__element-user-table-email-${index + 1}` }>
             {email}
           </td>
-          <td datatest-id={ `admin_manage__element-user-table-role-${id}` }>
+          <td data-testid={ `admin_manage__element-user-table-role-${index + 1}` }>
             {role}
           </td>
           <td>
             <button
               type="button"
-              datatest-id={ `admin_manage__element-user-table-remove-${id}` }
+              data-testid={ `admin_manage__element-user-table-remove-${index + 1}` }
               onClick={ async () => {
                 await deleteUser(`/user/${id}`, { id }, token);
                 setTableAtt(!tableAtt);
