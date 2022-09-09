@@ -16,7 +16,7 @@ function CustomerOrders() {
       setOrders(arrProducts);
     };
     productsOrders();
-  }, []);
+  }, [navigate]);
 
   const goToDetails = (id) => {
     const getProduct = orders.filter((element) => element.id === id);
