@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { requestGetWithToken } from '../../utils/requests';
 
 function DetailsOrder() {
   const [productsOrder, setProductsOrder] = useState({});
   const location = useLocation();
   const [idSale] = location.pathname.match(/[0-9]$/);
-  const isSeller = (/seller/i).test(location.pathname);
+  const isRouteSeller = (/seller/i).test(location.pathname);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
     (async () => {
-      const getProducts = await requestGetWithToken(`/seller/orders/${idSale}`, token);
+      if (isRouteSeller && (role !== 'seller' && role !== 'administrator')) {
+        navigate('/customer/orders');
+      } else if (!isRouteSeller && role === 'seller') {
+        navigate('/seller/orders');
+      }
+
+      const getProducts = await requestGetWithToken(
+        `/customer/orders/details/${idSale}`,
+        token,
+      );
       setProductsOrder(getProducts);
     })();
-  }, [idSale]);
+  }, [idSale, isRouteSeller, navigate]);
 
   const { totalPrice, products } = productsOrder;
 
@@ -35,33 +45,34 @@ function DetailsOrder() {
             <tr key={ index + 1 }>
               <td
                 data-testid={
-                  isSeller ? `seller_order_details__element-order-table-item-number-${id}`
+                  isRouteSeller ? `
+                    seller_order_details__element-order-table-item-number-${id}`
                     : `customer_order_details__element-order-table-number-${id}`
                 }
               >
-                {index + 1}
+                { index + 1 }
               </td>
               <td
                 data-testid={
-                  isSeller
+                  isRouteSeller
                     ? `seller_order_details__element-order-table-name-<${id}`
                     : `customer_checkout__element-order-table-name-<${id}`
                 }
               >
-                {name}
+                { name }
               </td>
               <td
                 data-testid={
-                  isSeller
+                  isRouteSeller
                     ? `seller_order_details__element-order-table-quantity-${id}`
                     : `customer_checkout__element-order-table-quantity-${id}`
                 }
               >
-                {quantity}
+                { quantity }
               </td>
               <td
                 data-testid={
-                  isSeller
+                  isRouteSeller
                     ? `seller_order_details__element-order-table-unit-price-${id}`
                     : `customer_checkout__element-order-table-unit-price-${id}`
                 }
@@ -70,7 +81,7 @@ function DetailsOrder() {
               </td>
               <td
                 data-testid={
-                  isSeller
+                  isRouteSeller
                     ? `seller_order_details__element-order-table-sub-total-${id}`
                     : `customer_checkout__element-order-table-sub-total-${id}`
                 }
@@ -82,7 +93,7 @@ function DetailsOrder() {
         </tbody>
       </table>
       <p
-        data-testid={ isSeller ? 'seller_order_details__element-order-total-price'
+        data-testid={ isRouteSeller ? 'seller_order_details__element-order-total-price'
           : 'customer_checkout__element-order-total-price' }
       >
         { `Total Pedido: R$ ${String(totalPrice).replace('.', ',')}`}
