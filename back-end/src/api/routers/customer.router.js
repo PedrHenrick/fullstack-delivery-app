@@ -36,7 +36,7 @@ customerRouter.get(
 
 customerRouter.put(
   '/orders/details/:id',
-  authenticateSellerMiddleware,
+  authenticateMiddleware,
   validateMiddleware(updateStatusSale),
   (request, response) => customerControllerInstance.updateSaleStatus(request, response),
 );

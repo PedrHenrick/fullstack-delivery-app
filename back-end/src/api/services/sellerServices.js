@@ -15,7 +15,7 @@ class SellerService {
 
     const SalesProducts = await this.salesProdutsModel.findAll({ 
       where: { saleId: id }, raw: true,
-     });
+    });
 
     const products = await Promise.all(SalesProducts.map(async ({ productId, quantity }) => {
       const oneProduct = await this.productsModel.findOne({ 
@@ -27,7 +27,7 @@ class SellerService {
       return { ...oneProduct, quantity };
     }));
     
-    return { ...orderDetails.dataValues, products };
+    return { ...orderDetails, products };
   }
 }
 

@@ -62,19 +62,23 @@ class CustomerService {
       return oneSale;
     }
 
-    async updateSaleStatus({ id }, { status }) {
-      if (
-        status === 'Preparando'
-        || status === 'Em Trânsito'
-        || status === 'Entregue'
-      ) {
+    async updateSaleStatus({ id }, { status }, { role }) {
+      if (status === 'Entregue') {
+        const sale = await this.salesModel.findOne({ where: { id } });
+        if (!sale) throw new Error('saleIsNotFound');
+        await this.salesModel.update({ status }, { where: { id: sale.id } });
+      
+        return { message: `Venda com o id: ${id}, atualizada com sucesso` };
+      } else if (
+        (status === 'Preparando' || status === 'Em Trânsito')
+        && (role === 'seller' || role === 'administrator')) {
         const sale = await this.salesModel.findOne({ where: { id } });
         if (!sale) throw new Error('saleIsNotFound');
         await this.salesModel.update({ status }, { where: { id: sale.id } });
       
         return { message: `Venda com o id: ${id}, atualizada com sucesso` };
       }
-      throw new Error('invalidStatus');
+      throw new Error('Unauthorized');
     }
 
     async getDetailsSale({ id }) {
@@ -86,7 +90,7 @@ class CustomerService {
 
       const SalesProducts = await this.salesProdutsModel.findAll({ 
         where: { saleId: detail.id }, raw: true,
-       });
+      });
 
       const products = await Promise.all(SalesProducts.map(async (product) => {
         const oneProduct = await this.productsModel.findOne({ 
