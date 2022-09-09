@@ -5,8 +5,7 @@ import formatDate from '../../utils/serializeDate';
 
 function HeaderTable() {
   const [productsOrder, setProductsOrder] = useState({});
-  const [disablePreparing, setDisablePreparing] = useState(false);
-  const [disableInTransit, setDisableInTransit] = useState(true);
+  const [atualize, setAtualize] = useState(false);
   const [token, setToken] = useState('');
 
   const location = useLocation();
@@ -22,29 +21,19 @@ function HeaderTable() {
         `/seller/orders/${idSale}`,
         userToken,
       );
-      setProductsOrder(getProducts);
+      setProductsOrder(getProducts.dataValues);
     })();
-  }, [idSale, disablePreparing, disableInTransit]);
+  }, [idSale, atualize]);
 
   const { saleDate, status } = productsOrder;
 
-  const handleClick = async ({ target: { name } }) => {
-    if (name === 'Preparando') {
-      await requestUpdateToken(
-        `/customer/orders/details/${idSale}`,
-        { status: name },
-        token,
-      );
-      setDisablePreparing(!disablePreparing);
-      setDisableInTransit(!disableInTransit);
-    } else if (name === 'Em Trânsito') {
-      await requestUpdateToken(
-        `/customer/orders/details/${idSale}`,
-        { status: name },
-        token,
-      );
-      setDisableInTransit(!disableInTransit);
-    }
+  const handleClick = async (newStatus) => {
+    await requestUpdateToken(
+      `/customer/orders/details/${idSale}`,
+      { status: newStatus },
+      token,
+    );
+    setAtualize(!atualize);
   };
 
   return (
@@ -67,23 +56,21 @@ function HeaderTable() {
                 'seller_order_details__element-order-details-label-delivery-status' || ''
               }
             >
-              {status}
+              { status }
             </th>
             <button
               type="button"
               data-testid="seller_order_details__button-preparing-check"
-              name="Preparando"
-              disabled={ disablePreparing }
-              onClick={ (e) => handleClick(e) }
+              disabled={ productsOrder.status !== 'Pendente' }
+              onClick={ () => handleClick('Preparando') }
             >
               Preparar pedido
             </button>
             <button
               type="button"
               data-testid="seller_order_details__button-dispatch-check"
-              name="Em Trânsito"
-              disabled={ disableInTransit }
-              onClick={ (e) => handleClick(e) }
+              disabled={ productsOrder.status !== 'Preparando' }
+              onClick={ () => handleClick('Em Trânsito') }
             >
               Saiu pra entrega
             </button>
