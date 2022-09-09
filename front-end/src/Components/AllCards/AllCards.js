@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Card from '../Card/Card';
 import { requestProducts } from '../../utils/requests';
-// import { saveInfo } from '../../utils/localStorage';
 
 function AllCards() {
   const [products, setProducts] = useState([]);

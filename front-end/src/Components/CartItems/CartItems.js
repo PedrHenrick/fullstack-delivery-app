@@ -21,7 +21,7 @@ function CartItems() {
       setTotalValue(count);
       setCartItems(getCartItems);
     })();
-  }, [atualize]);
+  }, [atualize, navigate]);
 
   useEffect(() => {
     (async () => {
@@ -56,7 +56,6 @@ function CartItems() {
 
   const createOrder = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
     const objectOrder = {
       userId: user.id,
       sellerId,
@@ -71,6 +70,7 @@ function CartItems() {
       objectOrder,
       user.token,
     );
+
     navigate(`/customer/orders/${orderCreated.id}`);
   };
 
