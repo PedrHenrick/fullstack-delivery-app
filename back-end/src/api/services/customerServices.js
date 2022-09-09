@@ -62,22 +62,15 @@ class CustomerService {
       return oneSale;
     }
 
-    async updateSaleStatus({ id }, { status }, { role }) {
-      if (status === 'Entregue') {
-        const sale = await this.salesModel.findOne({ where: { id } });
-        if (!sale) throw new Error('saleIsNotFound');
-        await this.salesModel.update({ status }, { where: { id: sale.id } });
-      
-        return { message: `Venda com o id: ${id}, atualizada com sucesso` };
-      } else if (
-        (status === 'Preparando' || status === 'Em Trânsito')
-        && (role === 'seller' || role === 'administrator')) {
+    async updateSaleStatus({ id }, { status }) {
+      if (status === 'Entregue' || status === 'Preparando' || status === 'Em Trânsito') {
         const sale = await this.salesModel.findOne({ where: { id } });
         if (!sale) throw new Error('saleIsNotFound');
         await this.salesModel.update({ status }, { where: { id: sale.id } });
       
         return { message: `Venda com o id: ${id}, atualizada com sucesso` };
       }
+
       throw new Error('Unauthorized');
     }
 

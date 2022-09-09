@@ -5,10 +5,7 @@ const SalesProduct = require('../../database/models/saleProduct');
 const Users = require('../../database/models/user');
 const { CustomerService } = require('../services/customerServices');
 const { CustomerController } = require('../controllers/customerController');
-const {
-  authenticateMiddleware,
-  authenticateSellerMiddleware,
-} = require('../middlewares/authenticate.middleware');
+const { authenticateMiddleware } = require('../middlewares/authenticate.middleware');
 const { validateMiddleware } = require('../middlewares/validate.middleware');
 const { postSaleSchema, updateStatusSale } = require('../middlewares/schems');
 

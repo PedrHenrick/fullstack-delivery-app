@@ -22,7 +22,7 @@ class CustomerController {
 
   async updateSaleStatus(request, response) {
     const result = await this.service
-      .updateSaleStatus(request.params, request.body, request.user);
+      .updateSaleStatus(request.params, request.body);
     return response.status(StatusCodes.OK).json(result);
   }
 
