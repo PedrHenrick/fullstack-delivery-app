@@ -37,10 +37,6 @@ const errorCatalog = {
     error: 'O usuário não é um vendedor',
     httpStatus: StatusCodes.UNAUTHORIZED,
   },
-  invalidStatus: {
-    error: 'status incorreto',
-    httpStatus: StatusCodes.BAD_REQUEST,
-  },
 };
 
 module.exports = { errorCatalog };
