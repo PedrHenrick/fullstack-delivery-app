@@ -18,9 +18,9 @@ function Header() {
           </Link>)}
         <Link
           data-testid="customer_products__element-navbar-link-orders"
-          to="/customer/orders"
+          to={ isSeller ? '/seller/orders' : '/customer/orders' }
         >
-          Meus Pedidos
+          { isSeller ? 'Pedidos' : 'Meus Pedidos' }
         </Link>
         <div
           data-testid="customer_products__element-navbar-user-full-name"
