@@ -5,8 +5,6 @@ import formatDate from '../../utils/serializeDate';
 
 function CustomerHeaderTable() {
   const [productsOrder, setProductsOrder] = useState({});
-  const [disableDelivered, setDisableDelivered] = useState(false);
-  const [saller, setSeller] = useState('');
   const [token, setToken] = useState('');
   const [atualize, setAtualize] = useState(true);
 
@@ -16,34 +14,24 @@ function CustomerHeaderTable() {
   useEffect(() => {
     (async () => {
       const { token: userToken } = JSON.parse(localStorage.getItem('user'));
-      if (!userToken) navigate('/login');
       setToken(userToken);
 
       const getProducts = await requestGetWithToken(
         `/customer/orders/details/${idSale}`,
         userToken,
       );
-      const sellers = await requestGetWithToken('/sellers', userToken);
-      const getSeller = sellers.find((seller) => seller.id === getProducts.sellerId);
-
-      if (getProducts.status === 'Pendente' || getProducts.status === 'Em Trânsito') {
-        setDisableDelivered(true);
-      }
-
-      setSeller(getSeller);
       setProductsOrder(getProducts);
     })();
-  }, [idSale, disableDelivered, atualize]);
+  }, [idSale, atualize]);
 
-  const { saleDate, status } = productsOrder;
+  const { saleDate, status, seller } = productsOrder;
 
-  const handleClick = async ({ target: { name } }) => {
+  const handleClick = async (newStatus) => {
     await requestUpdateToken(
       `/customer/orders/details/${idSale}`,
-      { status: name },
+      { status: newStatus },
       token,
     );
-    setDisableDelivered(true);
     setAtualize(!atualize);
   };
 
@@ -60,7 +48,7 @@ function CustomerHeaderTable() {
           <th
             data-testid="customer_order_details__element-order-details-label-seller-name"
           >
-            {`P. Vend: ${saller.name}`}
+            {`P. Vend: ${seller?.name}`}
           </th>
           <th
             data-testid="customer_order_details__element-order-details-label-order-date"
@@ -68,23 +56,20 @@ function CustomerHeaderTable() {
             { saleDate && formatDate(saleDate) }
           </th>
           <th
-            data-testid={ `customer_order_details__
-            element-order-details-label-delivery-status` }
+            data-testid={
+              'customer_order_details__element-order-details-label-delivery-status' || ''
+            }
           >
-            {status}
+            { status }
           </th>
-          <th
+          <button
+            type="button"
             data-testid="customer_order_details__button-delivery-check"
+            disabled={ productsOrder.status !== 'Em Trânsito' }
+            onClick={ () => handleClick('Entregue') }
           >
-            <button
-              type="button"
-              name="Entregue"
-              disabled={ disableDelivered }
-              onClick={ (e) => handleClick(e) }
-            >
-              Marcar como entregue
-            </button>
-          </th>
+            Marcar como entregue
+          </button>
         </tr>
       </thead>
     </table>
