@@ -1,64 +1,93 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { requestGetWithToken } from '../../utils/requests';
+import { requestGetWithToken, requestUpdateToken } from '../../utils/requests';
+import formatDate from '../../utils/serializeDate';
 
 function CustomerHeaderTable() {
   const [productsOrder, setProductsOrder] = useState({});
+  const [disableDelivered, setDisableDelivered] = useState(false);
+  const [saller, setSeller] = useState('');
+  const [token, setToken] = useState('');
+  const [atualize, setAtualize] = useState(true);
+
   const location = useLocation();
   const [idSale] = location.pathname.match(/[0-9]$/);
 
   useEffect(() => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
     (async () => {
-      const getProducts = await requestGetWithToken(`/seller/orders/${idSale}`, token);
+      const { token: userToken } = JSON.parse(localStorage.getItem('user'));
+      if (!userToken) navigate('/login');
+      setToken(userToken);
+
+      const getProducts = await requestGetWithToken(
+        `/customer/orders/details/${idSale}`,
+        userToken,
+      );
+      const sellers = await requestGetWithToken('/sellers', userToken);
+      const getSeller = sellers.find((seller) => seller.id === getProducts.sellerId);
+
+      if (getProducts.status === 'Pendente' || getProducts.status === 'Em Trânsito') {
+        setDisableDelivered(true);
+      }
+
+      setSeller(getSeller);
       setProductsOrder(getProducts);
     })();
-  }, [idSale]);
+  }, [idSale, disableDelivered, atualize]);
 
   const { saleDate, status } = productsOrder;
-  const NUMBER_8 = 8;
-  const NUMBER_4 = 4;
-  const NUMBER_2 = 2;
-  const NUMBER_0 = 0;
-  const NUMBER_5 = 5;
 
-  function formatDate(date) {
-    const strData = `
-    ${date.substr(NUMBER_8, NUMBER_2)}/${
-  date.substr(NUMBER_5, NUMBER_2)}/${
-  date.substr(NUMBER_0, NUMBER_4)}`;
-    return strData;
-  }
+  const handleClick = async ({ target: { name } }) => {
+    await requestUpdateToken(
+      `/customer/orders/details/${idSale}`,
+      { status: name },
+      token,
+    );
+    setDisableDelivered(true);
+    setAtualize(!atualize);
+  };
 
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th
-              data-testid="customer_order_details__element-order-details-label-order-id"
-            >
-              {`Pedido: ${idSale}`}
+    <table>
+      <thead>
+        <tr>
+          <th
+            data-testid="customer_order_details__element-order-details-label-order-id"
+          >
+            {`Pedido: ${idSale}`}
 
-            </th>
-            <th>Pessoa vendedora</th>
-            <th
-              data-testid="customer_order_details__element-order-details-label-order-date"
+          </th>
+          <th
+            data-testid="customer_order_details__element-order-details-label-seller-name"
+          >
+            {`P. Vend: ${saller.name}`}
+          </th>
+          <th
+            data-testid="customer_order_details__element-order-details-label-order-date"
+          >
+            { saleDate && formatDate(saleDate) }
+          </th>
+          <th
+            data-testid={ `customer_order_details__
+            element-order-details-label-delivery-status` }
+          >
+            {status}
+          </th>
+          <th
+            data-testid="customer_order_details__button-delivery-check"
+          >
+            <button
+              type="button"
+              name="Entregue"
+              disabled={ disableDelivered }
+              onClick={ (e) => handleClick(e) }
             >
-              { saleDate && formatDate(saleDate) }
-
-            </th>
-            <th
-              data-testid={ `customer_order_details__
-              element-order-details-label-delivery-status` }
-            >
-              {status}
-            </th>
-            <th>Marcar como entregue</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
+              Marcar como entregue
+            </button>
+          </th>
+        </tr>
+      </thead>
+    </table>
   );
 }
 
